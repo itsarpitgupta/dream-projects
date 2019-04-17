@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 class TemplateMatching(object):
 
+
     def __int__(self):
         print("in template constructor");
 
