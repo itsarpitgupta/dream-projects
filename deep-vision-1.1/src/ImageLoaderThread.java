@@ -25,7 +25,7 @@ public class ImageLoaderThread implements Runnable {
 			image.setImgName("Image001" + i + EXT);
 			image.setPath(IMAGE_PATH);
 			
-			Thread.sleep(500);
+			Thread.sleep(100);
 			this.processQueue.put(image);
 
 		}

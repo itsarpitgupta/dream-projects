@@ -145,8 +145,8 @@ public class MainFrame extends JFrame implements MouseListener, MouseMotionListe
 		jt.setTableHeader(new JTableHeader());
 		jt.setBackground(Color.YELLOW);
 
-		jt.setFont(new Font("Courier", Font.BOLD, 12));
-		jt.setForeground(Color.BLACK);
+		jt.setFont(new Font("Courier", Font.BOLD, 15));
+		jt.setForeground(Color.RED);
 
 		jt.setVisible(false);
 		resultDisplayPanel.add(jt);

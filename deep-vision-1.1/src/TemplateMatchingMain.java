@@ -13,7 +13,7 @@ public class TemplateMatchingMain {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat source=null;
         Mat template=null;
-        String filePath="D:\\STS-WKSP\\deep-vision-1.1\\";
+        String filePath="D:\\github-repos\\dream-projects\\deep-vision-1.1\\";
         //Load image file
         source=Imgcodecs.imread("D:\\Vision_Application\\hul_bad_230219\\Bad\\Image00126.BMP");
         template=Imgcodecs.imread(filePath+"template.jpg");

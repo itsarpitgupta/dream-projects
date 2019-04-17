@@ -18,7 +18,7 @@ public class ImageProcessorThread implements Runnable {
 		try {
 			templateMatching = new TemplateMatching();
 			while (true) {
-//				Instant start = Instant.now();
+				Instant start = Instant.now();
 				ImageData image = processQueue.take();
 				if (processQueue.size() == 1) {
 					failDueToHighLoad(image);
@@ -27,10 +27,10 @@ public class ImageProcessorThread implements Runnable {
 				}
 
 				loadImageIntoResultQueue(image);
-//				Instant finish = Instant.now();
+				Instant finish = Instant.now();
 
-//			    long timeElapsed = Duration.between(start, finish).toMillis();  //in millis
-				// System.out.println(timeElapsed);
+			    long timeElapsed = Duration.between(start, finish).toMillis();  //in millis
+				System.out.println(timeElapsed);
 
 			}
 		} catch (InterruptedException e) {

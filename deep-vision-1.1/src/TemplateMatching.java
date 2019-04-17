@@ -17,7 +17,7 @@ import org.opencv.imgproc.Imgproc;
  
 public class TemplateMatching {
 	
-	private final static String templateImagePath = "D:\\STS-WKSP\\deep-vision-1.1\\template.jpg";
+	private final static String templateImagePath = "D:\\github-repos\\dream-projects\\deep-vision-1.1\\template.jpg";
  
 	public TemplateMatching() {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -44,7 +44,7 @@ public class TemplateMatching {
         	MinMaxLocResult mmr = Core.minMaxLoc(result);
             Point matchLoc=mmr.maxLoc;
             
-            double threashhold = 0.80;
+            double threashhold = 0.40;
             if (mmr.maxVal > threashhold) {
             	Imgproc.rectangle(source, matchLoc, new Point(matchLoc.x + template.cols(),
                         matchLoc.y + template.rows()), new Scalar(0, 255, 0));
