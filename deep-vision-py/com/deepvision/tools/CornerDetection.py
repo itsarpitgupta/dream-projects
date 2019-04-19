@@ -52,8 +52,8 @@ parser = argparse.ArgumentParser(description='Code for Harris corner detector tu
 parser.add_argument('--input', help='Path to input image.',
                     default='D:\github-repos\dream-projects\deep-vision-py\DATA\\flat_chessboard.png')
 args = parser.parse_args()
-# src = cv.imread(cv.samples.findFile(args.input))
-src = cv.imread(args.input)
+src = cv.imread(cv.samples.findFile(args.input))
+# src = cv.imread(args.input)
 if src is None:
     print('Could not open or find the image:', args.input)
     exit(0)
@@ -72,10 +72,11 @@ cornerHarris_demo(thresh)
 cv.waitKey()
 """
 
-
+""
 # shi Tomasi And Good Features To Track
 no_of_corner = 25  # initial corners
 cv.createTrackbar('No of Corners', source_window, no_of_corner, max_thresh, shiTomasiAndGoodFeaturesToTrack)
 cv.imshow(source_window, src)
 shiTomasiAndGoodFeaturesToTrack(no_of_corner)
 cv.waitKey()
+""
