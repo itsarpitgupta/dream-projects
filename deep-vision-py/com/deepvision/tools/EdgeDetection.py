@@ -13,7 +13,7 @@ upper = 200  # initial threshold
 ksizX = 5  # initial threshold
 ksizeY = 5  # initial threshold
 
-def doNothing():
+def doNothing(self):
     pass
 
 def cannyEdgeDetection(lower,upper,ksizX,ksizeY):
