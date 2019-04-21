@@ -7,4 +7,3 @@ class TemplateMatchingInput(BaseInput):
     width = 0;
     image = None;
     type = ToolType.TEMPLATE_MATCHING
-

@@ -1,4 +1,6 @@
-import  enum
+import enum
+
+
 class ToolType(enum.Enum):
     TEMPLATE_MATCHING = 'TEMPLATE_MATCHING';
     EDGE_DETECTION = 'EDGE_DETECTION';
