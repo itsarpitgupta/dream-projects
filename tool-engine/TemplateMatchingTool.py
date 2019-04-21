@@ -5,7 +5,6 @@ from TemplateMatchingOutput import TemplateMatchingOutput
 from TemplateMatchingInput import TemplateMatchingInput
 
 
-
 class TemplateMatchingTool(ToolI):
 
     def matches(type: ToolType) -> bool:
