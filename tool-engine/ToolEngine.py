@@ -6,10 +6,10 @@ from typing import List
 
 
 class ToolEngine(object):
-    toolList = [];
+    toolList = None;
 
-    def __init__(self, tl):
-        self.toolList = tl;
+    def __init__(self):
+        self.toolList = [];
 
     def registerTool(self, tool: ToolI):
         self.toolList.append(tool)

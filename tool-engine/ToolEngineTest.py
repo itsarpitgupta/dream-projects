@@ -7,7 +7,7 @@ from ToolType import ToolType
 class ToolEngineTest(object):
 
     def main(self):
-        toolEngine = ToolEngine([])
+        toolEngine = ToolEngine()
         toolEngine.registerTool(TemplateMatchingTool())
         baseInput = TemplateMatchingInput()
         baseInput.type = ToolType.TEMPLATE_MATCHING
