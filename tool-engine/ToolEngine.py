@@ -18,7 +18,7 @@ class ToolEngine(object):
 
         for tool in self.toolList:
             if (input.type == ToolType.TEMPLATE_MATCHING):
-                output = tool.proces(input)
+                output = tool.process(input)
             else:
                 break;
 

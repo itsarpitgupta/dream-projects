@@ -10,5 +10,5 @@ class ToolI(ABC,Generic[I,O]):
     def matches(type: ToolType) -> bool:
         pass
 
-    def proces(self,input:I)-> O:
+    def process(self,input:I)-> O:
         pass

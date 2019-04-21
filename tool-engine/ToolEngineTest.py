@@ -12,7 +12,7 @@ class ToolEngineTest(object):
         baseInput = TemplateMatchingInput()
         baseInput.type = ToolType.TEMPLATE_MATCHING
         baseOutput = toolEngine.applyTool(baseInput)
-        print(baseOutput)
+        print(baseOutput.status)
 
 
 if __name__ == '__main__':
