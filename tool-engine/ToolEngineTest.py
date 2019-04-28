@@ -14,6 +14,5 @@ class ToolEngineTest(object):
         baseOutput = toolEngine.applyTool(baseInput)
         print(baseOutput.status)
 
-
 if __name__ == '__main__':
     test = ToolEngineTest().main()
