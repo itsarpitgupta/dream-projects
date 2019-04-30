@@ -24,6 +24,8 @@ class ToolEngine(object):
             output = self.tool.process(input)
         if (input.type.value is ToolType.CORNER_DETECTION.value):
             output = self.tool.process(input)
+        if (input.type.value is ToolType.EDGE_DETECTION.value):
+            output = self.tool.process(input)
         else:
             output.status = ToolType.NO_TOOL
         return output;

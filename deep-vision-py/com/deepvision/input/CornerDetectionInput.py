@@ -11,3 +11,4 @@ class CornerDetectionInput(BaseInput):
     apertureSize = 3
     k_size = 0.04
     max_thresholding = 100
+    maxCorners = 5

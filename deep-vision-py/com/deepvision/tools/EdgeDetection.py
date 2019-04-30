@@ -46,8 +46,8 @@ parser = argparse.ArgumentParser(description='Code for Harris corner detector tu
 parser.add_argument('--input', help='Path to input image.',
                     default='D:\github-repos\dream-projects\deep-vision-py\DATA\\Image00111.BMP')
 args = parser.parse_args()
-src = cv2.imread(cv2.samples.findFile(args.input))
-# src = cv.imread(args.input)
+# src = cv2.imread(cv2.samples.findFile(args.input))
+src = cv2.imread(args.input)
 if src is None:
     print('Could not open or find the image:', args.input)
     exit(0)

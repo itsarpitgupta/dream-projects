@@ -19,8 +19,9 @@ class CornerDetectionTool(ToolI):
     def process(self, input: CornerDetectionInput) -> CornerDetectionOutput:
         output = CornerDetectionOutput();
         if input.option == Constant.HARRIS_CORNER_DETECTION:
-            output = self.harisCornerDetection(input.main_img, input.threshold, input.blockSize, input.apertureSize,
-                                               input.k_size)
+            output = self.harisCornerDetection(input.main_img, input.threshold, input.blockSize, input.apertureSize,input.k_size)
+        elif input.option == Constant.SHI_TOMASI_AND_GOOD_FEATURES_TO_TRACK_CORNER_DETECTION:
+            output = self.shiTomasiAndGoodFeaturesToTrack(input.main_img,input.maxCorners)
         else:
             output = ''
         return output;
@@ -29,9 +30,8 @@ class CornerDetectionTool(ToolI):
         output = CornerDetectionOutput();
         full_img = cv2.imread(main_img)
         full = cv2.cvtColor(full_img, cv2.COLOR_BGR2GRAY)
-        print(full.dtype)
         # Detecting corners
-        dst = cv2.cornerHarris(full, 2, 3, 0.04)
+        dst = cv2.cornerHarris(full, blockSize, apertureSize, k_size)
         # Normalizing
         dst_norm = np.empty(dst.shape, dtype=np.float32)
         cv2.normalize(dst, dst_norm, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
@@ -49,6 +49,31 @@ class CornerDetectionTool(ToolI):
         plt.subplot(121), plt.imshow(full_img, cmap='gray')
         plt.title(self.source_window)  # , plt.xticks([]), plt.yticks([])
         plt.subplot(122), plt.imshow(dst_norm_scaled, cmap='gray')
+        plt.title(self.corners_window)  # , plt.xticks([]), plt.yticks([])
+        plt.suptitle("Corner Detection" + " [" + output.status + "]")
+
+        plt.show()
+
+        return output
+
+    def shiTomasiAndGoodFeaturesToTrack(self,main_img,maxCorners)-> CornerDetectionOutput:
+        output = CornerDetectionOutput();
+        full_img = cv2.imread(main_img)
+        full = cv2.cvtColor(full_img, cv2.COLOR_BGR2GRAY)
+        corners = cv2.goodFeaturesToTrack(full, maxCorners, 0.01, 10)
+        corners = np.int0(corners)
+
+        # Drawing a circle around corners
+        for i in corners:
+            x, y = i.ravel()
+            cv2.circle(full, (x, y), 3, (0, 255, 0), -1)
+
+        # Showing the result
+        output.status = Constant.RESULT_MATCH_FOUND
+
+        plt.subplot(121), plt.imshow(full_img, cmap='gray')
+        plt.title(self.source_window)  # , plt.xticks([]), plt.yticks([])
+        plt.subplot(122), plt.imshow(full, cmap='gray')
         plt.title(self.corners_window)  # , plt.xticks([]), plt.yticks([])
         plt.suptitle("Corner Detection" + " [" + output.status + "]")
 
