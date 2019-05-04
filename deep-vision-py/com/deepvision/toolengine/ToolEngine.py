@@ -17,7 +17,7 @@ class ToolEngine(object):
         self.tool = tool;
 
     def applyTool(self, input: BaseInput) -> BaseOutput:
-        output = BaseOutput();
+        # output = BaseOutput();
         # print(input.type.value)
         # print(ToolType.TEMPLATE_MATCHING.value)
         if (input.type.value is ToolType.TEMPLATE_MATCHING.value):

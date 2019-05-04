@@ -19,9 +19,10 @@ class CornerDetectionTool(ToolI):
     def process(self, input: CornerDetectionInput) -> CornerDetectionOutput:
         output = CornerDetectionOutput();
         if input.option == Constant.HARRIS_CORNER_DETECTION:
-            output = self.harisCornerDetection(input.main_img, input.threshold, input.blockSize, input.apertureSize,input.k_size)
+            output = self.harisCornerDetection(input.main_img, input.threshold, input.blockSize, input.apertureSize,
+                                               input.k_size)
         elif input.option == Constant.SHI_TOMASI_AND_GOOD_FEATURES_TO_TRACK_CORNER_DETECTION:
-            output = self.shiTomasiAndGoodFeaturesToTrack(input.main_img,input.maxCorners)
+            output = self.shiTomasiAndGoodFeaturesToTrack(input.main_img, input.maxCorners)
         else:
             output = ''
         return output;
@@ -41,7 +42,8 @@ class CornerDetectionTool(ToolI):
         for i in range(dst_norm.shape[0]):
             for j in range(dst_norm.shape[1]):
                 if int(dst_norm[i, j]) > threshold:
-                    cv2.circle(dst_norm_scaled, (j, i), 5, (0), 2)
+                    print("(", i, ",", j, ")")
+                    cv2.circle(dst_norm_scaled, (j, i), 5, (0), 5)
         # Showing the result
 
         output.status = Constant.RESULT_MATCH_FOUND
@@ -56,7 +58,7 @@ class CornerDetectionTool(ToolI):
 
         return output
 
-    def shiTomasiAndGoodFeaturesToTrack(self,main_img,maxCorners)-> CornerDetectionOutput:
+    def shiTomasiAndGoodFeaturesToTrack(self, main_img, maxCorners) -> CornerDetectionOutput:
         output = CornerDetectionOutput();
         full_img = cv2.imread(main_img)
         full = cv2.cvtColor(full_img, cv2.COLOR_BGR2GRAY)
@@ -66,7 +68,8 @@ class CornerDetectionTool(ToolI):
         # Drawing a circle around corners
         for i in corners:
             x, y = i.ravel()
-            cv2.circle(full, (x, y), 3, (0, 255, 0), -1)
+            output.corners.append([x,y])
+            cv2.circle(full, (x, y), 3, (0, 255, 0), 5)
 
         # Showing the result
         output.status = Constant.RESULT_MATCH_FOUND

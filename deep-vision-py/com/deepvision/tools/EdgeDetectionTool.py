@@ -17,12 +17,12 @@ class EdgeDetectionTool(ToolI):
         output = EdgeDetectionOutput();
         if input.option == Constant.CANNY_EDGE_DETECTION:
             output = self.cannyEdgeDetection(input.main_img, input.lower_threshold, input.upper_threshold,
-                                             input.k_sizeX, input.k_sizeY)
+                                             input.k_sizeX, input.k_sizeY, input.edge_thickness)
         else:
             output = ToolType.NO_TOOL
         return output;
 
-    def cannyEdgeDetection(self, main_img, lower, upper, ksizX, ksizeY) -> EdgeDetectionOutput:
+    def cannyEdgeDetection(self, main_img, lower, upper, ksizX, ksizeY, edge_thickness) -> EdgeDetectionOutput:
         output = EdgeDetectionOutput()
         full_img = cv2.imread(main_img)
         full_gray = cv2.cvtColor(full_img, cv2.COLOR_BGR2GRAY)
@@ -36,6 +36,22 @@ class EdgeDetectionTool(ToolI):
 
         edges = cv2.Canny(blurred_img, threshold1=lower, threshold2=upper)
 
+        rows = edges[:, 1].size
+        cols = edges[1, :].size
+
+        count = 1
+        for x in range(0, rows):
+            for y in range(0, cols):
+                if edges[x, y] == 255:
+                    for t in range(y + 1, y + edge_thickness):
+                        if t < cols:
+                            if edges[x, t] == 255:
+                                count += 1
+                            else:
+                                break
+                    if count >= edge_thickness:
+                        output.points.append([x, y])
+                count = 1
         # Showing the result
 
         plt.subplot(121), plt.imshow(full_img, cmap='gray')

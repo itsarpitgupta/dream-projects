@@ -5,6 +5,7 @@ from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
 from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
+from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.constants import Constant
 
@@ -13,6 +14,7 @@ class ToolEngineTest(object):
     def main(self):
         toolEngine = ToolEngine()
         # Tool :1
+        """
         toolEngine.registerTool(TemplateMatchingTool())
         baseInput = TemplateMatchingInput()
         baseInput.main_img = 'D:\github-repos\dream-projects\deep-vision-py\DATA\Image00111.BMP'
@@ -23,17 +25,22 @@ class ToolEngineTest(object):
         baseOutput = toolEngine.applyTool(baseInput)
 
         print(baseOutput.status)
+        """
 
         #Tool :2
         toolEngine.registerTool(CornerDetectionTool())
         baseInput = CornerDetectionInput()
-        baseInput.main_img = 'D:\github-repos\dream-projects\deep-vision-py\DATA\\flat_chessboard.png'
+        baseInput.main_img = 'C:/Users/arpit-java/Pictures/img.jpg'
         baseInput.option = Constant.SHI_TOMASI_AND_GOOD_FEATURES_TO_TRACK_CORNER_DETECTION
         baseInput.type = ToolType.CORNER_DETECTION
-
+        # baseInput.threshold = 100
+        baseInput.maxCorners = 4
         baseOutput = toolEngine.applyTool(baseInput)
+        print(type(baseOutput))
 
-        print(baseOutput.status)
+        print(baseOutput.__class__)
+        # print("Corners: "+baseOutput.corners)
+        # print(baseOutput.status)
 
         #Tool :3
         toolEngine.registerTool(EdgeDetectionTool())
@@ -45,7 +52,6 @@ class ToolEngineTest(object):
         baseOutput = toolEngine.applyTool(baseInput)
 
         print(baseOutput.status)
-
 
 if __name__ == '__main__':
     test = ToolEngineTest().main()

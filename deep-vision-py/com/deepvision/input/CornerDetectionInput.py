@@ -4,7 +4,8 @@ from com.deepvision.constants import Constant
 
 
 class CornerDetectionInput(BaseInput):
-    type = ToolType.CONTOUR_DETECTION
+    # defaults
+    type = ToolType.CORNER_DETECTION
     method = Constant.HARRIS_CORNER_DETECTION
     threshold = 100
     blockSize = 2

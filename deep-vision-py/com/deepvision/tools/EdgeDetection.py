@@ -44,7 +44,7 @@ def cannyEdgeDetection(lower,upper,ksizX,ksizeY):
 # Load source image and convert it to gray
 parser = argparse.ArgumentParser(description='Code for Harris corner detector tutorial.')
 parser.add_argument('--input', help='Path to input image.',
-                    default='D:\github-repos\dream-projects\deep-vision-py\DATA\\Image00111.BMP')
+                    default='D:\Vision_Application\hul_bad_230219\Bad\Image00114.BMP')
 args = parser.parse_args()
 # src = cv2.imread(cv2.samples.findFile(args.input))
 src = cv2.imread(args.input)

@@ -4,9 +4,11 @@ from com.deepvision.constants import Constant
 
 
 class EdgeDetectionInput(BaseInput):
+    # default values
     type = ToolType.EDGE_DETECTION
     method = Constant.CANNY_EDGE_DETECTION
     lower_threshold = 100
     upper_threshold = 200
     k_sizeX = 2
     k_sizeY = 3
+    edge_thickness = 1;
