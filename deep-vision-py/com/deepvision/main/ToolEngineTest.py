@@ -1,11 +1,15 @@
 from com.deepvision.toolengine.ToolEngine import ToolEngine
 from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
 from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
+from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
 from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
 from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
+from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
+from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
+from com.deepvision.output.AngleDetectionOutput import AngleDetectionOutput
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.constants import Constant
 
@@ -25,8 +29,8 @@ class ToolEngineTest(object):
         baseOutput = toolEngine.applyTool(baseInput)
 
         print(baseOutput.status)
-        """
-
+        
+    
         #Tool :2
         toolEngine.registerTool(CornerDetectionTool())
         baseInput = CornerDetectionInput()
@@ -37,16 +41,28 @@ class ToolEngineTest(object):
         baseInput.maxCorners = 4
         baseOutput = toolEngine.applyTool(baseInput)
         print(baseOutput.corners)
+        
+        """
 
         #Tool :3
         toolEngine.registerTool(EdgeDetectionTool())
         baseInput = EdgeDetectionInput()
-        baseInput.main_img = 'D:\github-repos\dream-projects\deep-vision-py\DATA\Image00111.BMP'
+        baseInput.main_img = 'D:\Vision_Application\hul_bad_230219\Bad\Image00111.BMP'
         baseInput.option = Constant.CANNY_EDGE_DETECTION
         baseInput.type = ToolType.EDGE_DETECTION
         baseOutput = toolEngine.applyTool(baseInput)
 
         print(baseOutput.points)
+
+        #Tool :4
+        toolEngine.registerTool(AngleDetectionTool())
+        baseInput = AngleDetectionInput()
+        baseInput.point_1 = baseOutput.points[0]
+        baseInput.point_2 = baseOutput.points[-1]
+        baseInput.type = ToolType.ANGLE_DETECTION
+        baseOutput = toolEngine.applyTool(baseInput)
+
+        print(baseOutput.angle_value)
 
 if __name__ == '__main__':
     test = ToolEngineTest().main()

@@ -3,7 +3,7 @@ from BaseInput import BaseInput
 from BaseOutput import BaseOutput
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
-from ToolType import ToolType
+from com.deepvision.constants.ToolType import ToolType
 from typing import List
 
 
@@ -25,6 +25,8 @@ class ToolEngine(object):
         if (input.type.value is ToolType.CORNER_DETECTION.value):
             output = self.tool.process(input)
         if (input.type.value is ToolType.EDGE_DETECTION.value):
+            output = self.tool.process(input)
+        if (input.type.value is ToolType.ANGLE_DETECTION.value):
             output = self.tool.process(input)
         else:
             output.status = ToolType.NO_TOOL
