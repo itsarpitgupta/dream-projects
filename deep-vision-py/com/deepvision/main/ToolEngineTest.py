@@ -36,11 +36,7 @@ class ToolEngineTest(object):
         # baseInput.threshold = 100
         baseInput.maxCorners = 4
         baseOutput = toolEngine.applyTool(baseInput)
-        print(type(baseOutput))
-
-        print(baseOutput.__class__)
-        # print("Corners: "+baseOutput.corners)
-        # print(baseOutput.status)
+        print(baseOutput.corners)
 
         #Tool :3
         toolEngine.registerTool(EdgeDetectionTool())
@@ -48,10 +44,9 @@ class ToolEngineTest(object):
         baseInput.main_img = 'D:\github-repos\dream-projects\deep-vision-py\DATA\Image00111.BMP'
         baseInput.option = Constant.CANNY_EDGE_DETECTION
         baseInput.type = ToolType.EDGE_DETECTION
-
         baseOutput = toolEngine.applyTool(baseInput)
 
-        print(baseOutput.status)
+        print(baseOutput.points)
 
 if __name__ == '__main__':
     test = ToolEngineTest().main()
