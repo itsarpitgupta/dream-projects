@@ -11,7 +11,7 @@ class JobLoader(object):
     tool_list = []
 
     def loadJob(self):
-        with open("job.json", "r") as read_file:
+        with open("job1.json", "r") as read_file:
             test_obj = json.load(read_file)
 
         print('Job Name : ' + test_obj['job_name'])
@@ -40,18 +40,20 @@ class JobLoader(object):
         return input;
 
     def createTemplateMatchingInput(self, tool) -> TemplateMatchingInput:
-        input = TemplateMatchingInput(tool['type'], tool['method'], tool['main_img'], tool['temp_img'], tool['option'])
+        input = TemplateMatchingInput(tool['type'], tool['method'], tool['main_img'], tool['temp_img'], tool['option'],
+                                      tool['next_tool'])
         return input
 
     def createAngleDetectionInput(self, tool) -> AngleDetectionInput:
-        input = AngleDetectionInput(tool['type'], tool['point_1'], tool['point_2'])
+        input = AngleDetectionInput(tool['type'], tool['point_1'], tool['point_2'], tool['next_tool'])
         return input
 
     def createDistanceDetectionInput(self, tool) -> DistanceDetectionInput:
-        input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'])
+        input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'],
+                                       tool['next_tool'])
         return input
 
     def createEdgeDetectionInput(self, tool) -> EdgeDetectionInput:
         input = EdgeDetectionInput(tool['type'], tool['method'], tool['lower_threshold'], tool['upper_threshold'],
-                                   tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'])
+                                   tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'], tool['next_tool'])
         return input

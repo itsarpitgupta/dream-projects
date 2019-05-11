@@ -5,12 +5,12 @@
   "created_date_time": "",
   "modified_by": "",
   "modified_date_time": "",
-  "img_source": "",
+  "img_source": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\Image00111.BMP",
   "tools": [
     {
       "type": "TEMPLATE_MATCHING",
-      "main_img": "",
-      "temp_img": "",
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\Image00111.BMP",
+      "temp_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\template.jpg",
       "method": "cv2.TM_CCOEFF",
       "option": "SINGLE",
       "next_tool": []

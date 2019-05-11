@@ -42,23 +42,23 @@ def main():
                 toolEngine.registerTool(CornerDetectionTool())
                 next_tool_input = jobLoader.createCornerDetectionInput(next_tool);
 
-            if (ToolType.TEMPLATE_MATCHING.value == next_tool.type):
+            if (ToolType.TEMPLATE_MATCHING.value == next_tool['type']):
                 toolEngine.registerTool(TemplateMatchingTool())
                 next_tool_input = jobLoader.createTemplateMatchingInput(next_tool);
 
-            if (ToolType.ANGLE_DETECTION.value == next_tool.type):
+            if (ToolType.ANGLE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(AngleDetectionTool())
                 next_tool_input = jobLoader.createAngleDetectionInput(next_tool);
                 next_tool.point_1 = output.point_1
                 next_tool.point_2 = output.point_2
 
-            if (ToolType.DISTANCE_DETECTION.value == next_tool.type):
+            if (ToolType.DISTANCE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(DistanceDetectionTool())
                 next_tool_input = jobLoader.createDistanceDetectionInput(next_tool);
                 next_tool.point_1 = output.point_1
                 next_tool.point_2 = output.point_2
 
-            if (ToolType.EDGE_DETECTION.value == next_tool.type):
+            if (ToolType.EDGE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(EdgeDetectionTool())
                 next_tool_input = jobLoader.createEdgeDetectionInput(next_tool);
 

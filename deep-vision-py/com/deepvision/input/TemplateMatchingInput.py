@@ -5,12 +5,13 @@ from com.deepvision.constants import Constant
 
 class TemplateMatchingInput(BaseInput):
 
-    def __int__(self, type, method, main_img, temp_img, option):
+    def __init__(self, type, method, main_img, temp_img, option, next_tool):
         self.type = type
         self.method = method
         self.main_img = main_img
         self.temp_img = temp_img
         self.option = option
+        self.next_tool = next_tool
 
     type = ToolType.TEMPLATE_MATCHING
     main_img = None;

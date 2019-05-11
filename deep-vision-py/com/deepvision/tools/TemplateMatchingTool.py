@@ -27,7 +27,7 @@ class TemplateMatchingTool(ToolI):
         full = cv2.imread(main_img)
         full = cv2.cvtColor(full, cv2.COLOR_BGR2RGB)
 
-        # plt.imshow(full)
+        plt.imshow(full)
 
         # reading the template image
         template = cv2.imread(temp_img)
@@ -36,7 +36,7 @@ class TemplateMatchingTool(ToolI):
         # getting width, height and channels
         w, h, c = template.shape
 
-        # plt.imshow(template)
+        plt.imshow(template)
 
         # create a copy of main image for operations
         img = full.copy()
@@ -56,7 +56,7 @@ class TemplateMatchingTool(ToolI):
         # cv2.rectangle(img, top_left, bottom_right, 255, 2)
 
         # Apply thresholing
-        threshold = 0.8
+        threshold = 0.4
         print(max_val)
         res_percent = int(max_val)/10000000;
         if res_percent >= threshold:
