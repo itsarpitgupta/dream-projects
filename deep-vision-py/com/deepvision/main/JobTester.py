@@ -14,6 +14,7 @@ from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
 from com.deepvision.output.AngleDetectionOutput import AngleDetectionOutput
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.constants import Constant
+from com.deepvision.job.JobLoader import JobLoader
 
 
 def main():
@@ -34,9 +35,33 @@ def main():
         if (ToolType.EDGE_DETECTION.value == tool.type):
             toolEngine.registerTool(EdgeDetectionTool())
 
-        output = toolEngine.applyTool(input)
+        output = toolEngine.applyTool(tool)
 
-        # for next_tool in tool.
+        for next_tool in tool.next_tool:
+            if (ToolType.CORNER_DETECTION.value == next_tool['type']):
+                toolEngine.registerTool(CornerDetectionTool())
+                next_tool_input = jobLoader.createCornerDetectionInput(next_tool);
+
+            if (ToolType.TEMPLATE_MATCHING.value == next_tool.type):
+                toolEngine.registerTool(TemplateMatchingTool())
+                next_tool_input = jobLoader.createTemplateMatchingInput(next_tool);
+
+            if (ToolType.ANGLE_DETECTION.value == next_tool.type):
+                toolEngine.registerTool(AngleDetectionTool())
+                next_tool_input = jobLoader.createAngleDetectionInput(next_tool);
+                next_tool.point_1 = output.point_1
+                next_tool.point_2 = output.point_2
+
+            if (ToolType.DISTANCE_DETECTION.value == next_tool.type):
+                toolEngine.registerTool(DistanceDetectionTool())
+                next_tool_input = jobLoader.createDistanceDetectionInput(next_tool);
+                next_tool.point_1 = output.point_1
+                next_tool.point_2 = output.point_2
+
+            if (ToolType.EDGE_DETECTION.value == next_tool.type):
+                toolEngine.registerTool(EdgeDetectionTool())
+                next_tool_input = jobLoader.createEdgeDetectionInput(next_tool);
+
 
 if __name__ == "__main__":
     main();

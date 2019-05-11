@@ -8,7 +8,6 @@ from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 
 
 class JobLoader(object):
-
     tool_list = []
 
     def loadJob(self):
@@ -22,42 +21,37 @@ class JobLoader(object):
         for tool in tools:
             tool_type = tool['type']
             if (ToolType.CORNER_DETECTION.value == tool_type):
-                input = createCornerDetectionInput(tool)
+                input = self.createCornerDetectionInput(tool)
             if (ToolType.TEMPLATE_MATCHING.value == tool_type):
-                input = createTemplateMatchingInput(tool)
+                input = self.createTemplateMatchingInput(tool)
             if (ToolType.ANGLE_DETECTION.value == tool_type):
-                input = createAngleDetectionInput(tool)
+                input = self.createAngleDetectionInput(tool)
             if (ToolType.DISTANCE_DETECTION.value == tool_type):
-                input = createDistanceDetectionInput(tool)
+                input = self.createDistanceDetectionInput(tool)
             if (ToolType.EDGE_DETECTION.value == tool_type):
-                input = createEdgeDetectionInput(tool)
+                input = self.createEdgeDetectionInput(tool)
             self.tool_list.append(input);
 
+    def createCornerDetectionInput(self, tool) -> CornerDetectionInput:
+        input = CornerDetectionInput(tool['type'], tool['method'], tool['threshold'], tool['blockSize'],
+                                     tool['apertureSize'], tool['k_size'],
+                                     tool['max_thresholding'], tool['maxCorners'], tool['next_tool']);
 
-def createCornerDetectionInput(tool) -> CornerDetectionInput:
-    input = CornerDetectionInput(tool['type'], tool['method'], tool['threshold'], tool['blockSize'],
-                                 tool['apertureSize'], tool['k_size'],
-                                 tool['max_thresholding'], tool['maxCorners'], tool['next_tool']);
+        return input;
 
-    return input;
+    def createTemplateMatchingInput(self, tool) -> TemplateMatchingInput:
+        input = TemplateMatchingInput(tool['type'], tool['method'], tool['main_img'], tool['temp_img'], tool['option'])
+        return input
 
+    def createAngleDetectionInput(self, tool) -> AngleDetectionInput:
+        input = AngleDetectionInput(tool['type'], tool['point_1'], tool['point_2'])
+        return input
 
-def createTemplateMatchingInput(tool) -> TemplateMatchingInput:
-    input = TemplateMatchingInput(tool['type'], tool['method'], tool['main_img'], tool['temp_img'], tool['option'])
-    return input
+    def createDistanceDetectionInput(self, tool) -> DistanceDetectionInput:
+        input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'])
+        return input
 
-
-def createAngleDetectionInput(tool) -> AngleDetectionInput:
-    input = AngleDetectionInput(tool['type'], tool['point_1'], tool['point_2'])
-    return input
-
-
-def createDistanceDetectionInput(tool) -> DistanceDetectionInput:
-    input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'])
-    return input
-
-
-def createEdgeDetectionInput(tool) -> EdgeDetectionInput:
-    input = EdgeDetectionInput(tool['type'], tool['method'], tool['lower_threshold'], tool['upper_threshold'],
-                               tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'])
-    return input
+    def createEdgeDetectionInput(self, tool) -> EdgeDetectionInput:
+        input = EdgeDetectionInput(tool['type'], tool['method'], tool['lower_threshold'], tool['upper_threshold'],
+                                   tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'])
+        return input

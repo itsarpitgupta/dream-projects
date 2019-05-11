@@ -17,16 +17,16 @@ class ToolEngine(object):
         self.tool = tool;
 
     def applyTool(self, input: BaseInput) -> BaseOutput:
-        # output = BaseOutput();
-        # print(input.type.value)
-        # print(ToolType.TEMPLATE_MATCHING.value)
-        if (input.type.value is ToolType.TEMPLATE_MATCHING.value):
+        output = BaseOutput();
+        print(input.type)
+        print(ToolType.TEMPLATE_MATCHING.value)
+        if (input.type is ToolType.TEMPLATE_MATCHING.value):
             output = self.tool.process(input)
-        if (input.type.value is ToolType.CORNER_DETECTION.value):
+        if (input.type is ToolType.CORNER_DETECTION.value):
             output = self.tool.process(input)
-        if (input.type.value is ToolType.EDGE_DETECTION.value):
+        if (input.type is ToolType.EDGE_DETECTION.value):
             output = self.tool.process(input)
-        if (input.type.value is ToolType.ANGLE_DETECTION.value):
+        if (input.type is ToolType.ANGLE_DETECTION.value):
             output = self.tool.process(input)
         else:
             output.status = ToolType.NO_TOOL
