@@ -1,0 +1,24 @@
+{
+  "job_name": "test",
+  "job_description": "this is test job",
+  "created_by": "arpit.kumar",
+  "created_date_time": "",
+  "modified_by": "",
+  "modified_date_time": "",
+  "img_source" : "",
+  "tools": [
+    {
+      "type": "CORNER_DETECTION",
+      "method": "HARRIS_CORNER_DETECTION",
+      "threshold": 100,
+      "blockSize": 2,
+      "apertureSize": 3,
+      "k_size": 0.04,
+      "max_thresholding": 100,
+      "maxCorners": 5,
+      "next_tool": [
+        "EDGE_DETECTION","TEMPLATE_MATCHING"
+      ]
+    }
+  ]
+}

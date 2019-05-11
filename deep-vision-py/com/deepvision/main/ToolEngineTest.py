@@ -29,7 +29,7 @@ class ToolEngineTest(object):
         baseOutput = toolEngine.applyTool(baseInput)
 
         print(baseOutput.status)
-        
+        """
     
         #Tool :2
         toolEngine.registerTool(CornerDetectionTool())
@@ -42,7 +42,7 @@ class ToolEngineTest(object):
         baseOutput = toolEngine.applyTool(baseInput)
         print(baseOutput.corners)
         
-        """
+
 
         #Tool :3
         toolEngine.registerTool(EdgeDetectionTool())
