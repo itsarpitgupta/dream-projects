@@ -1,12 +1,9 @@
-from com.deepvision.toolengine.ToolI import ToolI
+from scipy.spatial import distance as dist
+
 from com.deepvision.constants import ToolType, Constant
 from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
 from com.deepvision.output.DistanceDetectionOutput import DistanceDetectionOutput
-from typing import TypeVar, Callable
-import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.spatial import distance as dist
+from com.deepvision.toolengine.ToolI import ToolI
 
 
 class DistanceDetectionTool(ToolI):

@@ -1,11 +1,11 @@
-from com.deepvision.toolengine.ToolI import ToolI
-from com.deepvision.constants import ToolType, Constant
-from typing import TypeVar, Callable
-from com.deepvision.output.EdgeDetectionOutput import EdgeDetectionOutput
-from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
+from com.deepvision.constants import ToolType, Constant
+from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
+from com.deepvision.output.EdgeDetectionOutput import EdgeDetectionOutput
+from com.deepvision.toolengine.ToolI import ToolI
 
 
 class EdgeDetectionTool(ToolI):
@@ -64,6 +64,4 @@ class EdgeDetectionTool(ToolI):
         output.point_1 = output.points[0]
         output.point_2 = output.points[-1]
         output.point_mid = output.points[int(len(output.points)/2)]
-        print("Edge mid points -")
-        print(output.point_mid)
         return output;

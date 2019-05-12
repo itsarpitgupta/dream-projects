@@ -59,6 +59,3 @@ class JobLoader(object):
                                    tool['upper_threshold'],
                                    tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'], tool['next_tool'])
         return input
-
-    def getValueUsingReference(self, expression):
-        return eval(expression);

@@ -1,10 +1,7 @@
-from ToolI import ToolI
-from BaseInput import BaseInput
-from BaseOutput import BaseOutput
-from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
-from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.constants.ToolType import ToolType
-from typing import List
+from com.deepvision.input.BaseInput import BaseInput
+from com.deepvision.output.BaseOutput import BaseOutput
+from com.deepvision.toolengine.ToolI import ToolI
 
 
 class ToolEngine(object):
