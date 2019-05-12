@@ -12,7 +12,7 @@ class JobLoader(object):
     jobJsonData = "";
 
     def loadJob(self):
-        with open("..//job//job3.json", "r") as read_file:
+        with open("..//job//job1.json", "r") as read_file:
             self.jobJsonData = json.load(read_file)
 
         print('Job Name : ' + self.jobJsonData['job_name'])

@@ -1,11 +1,10 @@
-from com.deepvision.toolengine.ToolI import ToolI
-from com.deepvision.constants import ToolType,Constant
-from typing import TypeVar, Callable
-from com.deepvision.output.TemplateMatchingOutput import TemplateMatchingOutput
-from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from com.deepvision.constants import ToolType, Constant
+from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
+from com.deepvision.output.TemplateMatchingOutput import TemplateMatchingOutput
+from com.deepvision.toolengine.ToolI import ToolI
 
 
 class TemplateMatchingTool(ToolI):
@@ -16,12 +15,12 @@ class TemplateMatchingTool(ToolI):
     def process(self, input: TemplateMatchingInput) -> TemplateMatchingOutput:
         output = TemplateMatchingOutput();
         if input.option == Constant.TEMPLATE_MATCHING_ON_SINGLE_OBJECT:
-            output = self.matchTemplateWithSingleObject(input.main_img,input.temp_img,input.method)
+            output = self.matchTemplateWithSingleObject(input.main_img, input.temp_img, input.method)
         else:
-            output = self.matchTemplateWithMultipleObject(input.main_img,input.temp_img)
+            output = self.matchTemplateWithMultipleObject(input.main_img, input.temp_img)
         return output;
 
-    def matchTemplateWithSingleObject(self,main_img, temp_img, opt)-> TemplateMatchingOutput :
+    def matchTemplateWithSingleObject(self, main_img, temp_img, opt) -> TemplateMatchingOutput:
         output = TemplateMatchingOutput();
         # reading the main image
         full = cv2.imread(main_img)
@@ -35,7 +34,7 @@ class TemplateMatchingTool(ToolI):
 
         # getting width, height and channels
         w, h, c = template.shape
-
+        print(template.shape)
         plt.imshow(template)
 
         # create a copy of main image for operations
@@ -57,26 +56,30 @@ class TemplateMatchingTool(ToolI):
 
         # Apply thresholing
         threshold = 0.4
-        print(max_val)
-        res_percent = int(max_val)/10000000;
+        res_percent = int(max_val) / 10000000;
         if res_percent >= threshold:
             cv2.rectangle(img, top_left, bottom_right, 255, 2)
             output.status = Constant.RESULT_MATCH_FOUND
+            start = np.asarray(bottom_right)
+            end = np.asarray(top_left)
+            new_img = img[start[:-1][0]:start[1:][0], end[:-1][0]:end[1:][0], :]
+            # plt.imshow(new_img)
+            # plt.show()
+            output.result_template = new_img.copy()
         else:
             output.status = Constant.RESULT_NO_MATCH_FOUND
 
         plt.subplot(121), plt.imshow(template, cmap='gray')
-        plt.title('Template Image') #, plt.xticks([]), plt.yticks([])
+        plt.title('Template Image')  # , plt.xticks([]), plt.yticks([])
         plt.subplot(122), plt.imshow(img, cmap='gray')
-        plt.title('Detected Point') #, plt.xticks([]), plt.yticks([])
-        plt.suptitle(opt + " ["+output.status+"]")
+        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
+        plt.suptitle(opt + " [" + output.status + "]")
 
         plt.show()
 
         return output
 
-
-    def matchTemplateWithMultipleObject(self, main_img, temp_img)-> TemplateMatchingOutput:
+    def matchTemplateWithMultipleObject(self, main_img, temp_img) -> TemplateMatchingOutput:
 
         output = TemplateMatchingOutput()
         # reading the main image
