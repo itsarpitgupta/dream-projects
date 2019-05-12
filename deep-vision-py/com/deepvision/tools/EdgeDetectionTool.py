@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 class EdgeDetectionTool(ToolI):
 
     def matches(type: ToolType) -> bool:
-        return type == ToolType.EDGE_DETECTION
+        return type == ToolType.ToolType.EDGE_DETECTION
 
     def process(self, input: EdgeDetectionInput) -> EdgeDetectionOutput:
         output = EdgeDetectionOutput();
-        if input.option == Constant.CANNY_EDGE_DETECTION:
+        if input.method == Constant.CANNY_EDGE_DETECTION:
             output = self.cannyEdgeDetection(input.main_img, input.lower_threshold, input.upper_threshold,
                                              input.k_sizeX, input.k_sizeY, input.edge_thickness)
         else:
@@ -61,4 +61,9 @@ class EdgeDetectionTool(ToolI):
         plt.show()
 
         output.status = Constant.RESULT_MATCH_FOUND
+        output.point_1 = output.points[0]
+        output.point_2 = output.points[-1]
+        output.point_mid = output.points[int(len(output.points)/2)]
+        print("Edge mid points -")
+        print(output.point_mid)
         return output;

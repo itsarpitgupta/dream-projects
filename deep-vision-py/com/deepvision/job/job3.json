@@ -5,10 +5,10 @@
   "created_date_time": "",
   "modified_by": "",
   "modified_date_time": "",
-  "img_source": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\flat_chessboard.png",
+  "img_source": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\edge.BMP",
   "tools": [
     {
-      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\flat_chessboard.png",
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\edge.BMP",
       "type": "EDGE_DETECTION",
       "method": "CANNY_EDGE_DETECTION",
       "lower_threshold": 100,
@@ -35,7 +35,7 @@
       "next_tool": []
     },
     {
-      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\flat_chessboard.png",
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\edge.BMP",
       "type": "EDGE_DETECTION",
       "method": "CANNY_EDGE_DETECTION",
       "lower_threshold": 100,
@@ -63,8 +63,8 @@
         {
           "type": "DISTANCE_DETECTION",
           "method": "PX",
-          "point_1": "tools[0].output[0].point_mid",
-          "point_2": "tools[1].output[0].point_2",
+          "point_1": "self.jobJsonData['tools'][0]['output'][0]['point_mid']",
+          "point_2": "self.jobJsonData['tools'][0]['output'][0]['point_2']",
           "next_tool": []
         }
       ]

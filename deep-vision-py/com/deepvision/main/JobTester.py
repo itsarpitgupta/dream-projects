@@ -21,7 +21,7 @@ def main():
     toolEngine = ToolEngine();
     jobLoader = JobLoader();
     jobLoader.loadJob();
-    print(len(jobLoader.tool_list))
+    # print(len(jobLoader.tool_list))
 
     for tool in jobLoader.tool_list:
         if (ToolType.CORNER_DETECTION.value == tool.type):
@@ -55,8 +55,8 @@ def main():
             if (ToolType.DISTANCE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(DistanceDetectionTool())
                 next_tool_input = jobLoader.createDistanceDetectionInput(next_tool);
-                next_tool_input.point_1 = output.point_1.copy()
-                next_tool_input.point_2 = output.point_2.copy()
+                next_tool_input.point_1 = jobLoader.getValueUsingReference(next_tool['point_1'])
+                next_tool_input.point_2 = jobLoader.getValueUsingReference(next_tool['point_2'])
 
             if (ToolType.EDGE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(EdgeDetectionTool())

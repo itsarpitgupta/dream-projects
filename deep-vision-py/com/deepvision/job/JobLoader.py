@@ -9,15 +9,16 @@ from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 
 class JobLoader(object):
     tool_list = []
+    jobJsonData = "";
 
     def loadJob(self):
-        with open("..//job//job2.json", "r") as read_file:
-            test_obj = json.load(read_file)
+        with open("..//job//job3.json", "r") as read_file:
+            self.jobJsonData = json.load(read_file)
 
-        print('Job Name : ' + test_obj['job_name'])
-        print('Job Description : ' + test_obj['job_description'])
-        print('Job Created By :' + test_obj['created_by'])
-        tools = test_obj['tools']
+        print('Job Name : ' + self.jobJsonData['job_name'])
+        print('Job Description : ' + self.jobJsonData['job_description'])
+        print('Job Created By :' + self.jobJsonData['created_by'])
+        tools = self.jobJsonData['tools']
         for tool in tools:
             tool_type = tool['type']
             if (ToolType.CORNER_DETECTION.value == tool_type):
@@ -33,7 +34,8 @@ class JobLoader(object):
             self.tool_list.append(input);
 
     def createCornerDetectionInput(self, tool) -> CornerDetectionInput:
-        input = CornerDetectionInput( tool['main_img'],tool['type'], tool['method'], tool['threshold'], tool['blockSize'],
+        input = CornerDetectionInput(tool['main_img'], tool['type'], tool['method'], tool['threshold'],
+                                     tool['blockSize'],
                                      tool['apertureSize'], tool['k_size'],
                                      tool['max_thresholding'], tool['maxCorners'], tool['next_tool']);
 
@@ -53,6 +55,10 @@ class JobLoader(object):
         return input
 
     def createEdgeDetectionInput(self, tool) -> EdgeDetectionInput:
-        input = EdgeDetectionInput(tool['type'], tool['method'], tool['lower_threshold'], tool['upper_threshold'],
+        input = EdgeDetectionInput(tool['main_img'], tool['type'], tool['method'], tool['lower_threshold'],
+                                   tool['upper_threshold'],
                                    tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'], tool['next_tool'])
         return input
+
+    def getValueUsingReference(self, expression):
+        return eval(expression);
