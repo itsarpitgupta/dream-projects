@@ -15,5 +15,5 @@ class DistanceDetectionInput(BaseInput):
     type = ToolType.DISTANCE_DETECTION
     method = Constant.DISTANCE_DETECTION_METHOD_PX
 
-    point_1 = None
-    point_2 = None
+    point_1 = []
+    point_2 = []

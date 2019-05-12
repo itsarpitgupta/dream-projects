@@ -11,7 +11,7 @@ class JobLoader(object):
     tool_list = []
 
     def loadJob(self):
-        with open("job1.json", "r") as read_file:
+        with open("..//job//job2.json", "r") as read_file:
             test_obj = json.load(read_file)
 
         print('Job Name : ' + test_obj['job_name'])
@@ -33,7 +33,7 @@ class JobLoader(object):
             self.tool_list.append(input);
 
     def createCornerDetectionInput(self, tool) -> CornerDetectionInput:
-        input = CornerDetectionInput(tool['type'], tool['method'], tool['threshold'], tool['blockSize'],
+        input = CornerDetectionInput( tool['main_img'],tool['type'], tool['method'], tool['threshold'], tool['blockSize'],
                                      tool['apertureSize'], tool['k_size'],
                                      tool['max_thresholding'], tool['maxCorners'], tool['next_tool']);
 
@@ -49,8 +49,7 @@ class JobLoader(object):
         return input
 
     def createDistanceDetectionInput(self, tool) -> DistanceDetectionInput:
-        input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'],
-                                       tool['next_tool'])
+        input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'])
         return input
 
     def createEdgeDetectionInput(self, tool) -> EdgeDetectionInput:

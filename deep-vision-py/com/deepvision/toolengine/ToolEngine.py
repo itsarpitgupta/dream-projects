@@ -28,6 +28,8 @@ class ToolEngine(object):
             output = self.tool.process(input)
         if (input.type == ToolType.ANGLE_DETECTION.value):
             output = self.tool.process(input)
+        if (input.type == ToolType.DISTANCE_DETECTION.value):
+            output = self.tool.process(input)
         else:
             output.status = ToolType.NO_TOOL
         return output;

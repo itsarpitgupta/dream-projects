@@ -18,10 +18,10 @@ class CornerDetectionTool(ToolI):
 
     def process(self, input: CornerDetectionInput) -> CornerDetectionOutput:
         output = CornerDetectionOutput();
-        if input.option == Constant.HARRIS_CORNER_DETECTION:
+        if input.method == Constant.HARRIS_CORNER_DETECTION:
             output = self.harisCornerDetection(input.main_img, input.threshold, input.blockSize, input.apertureSize,
                                                input.k_size)
-        elif input.option == Constant.SHI_TOMASI_AND_GOOD_FEATURES_TO_TRACK_CORNER_DETECTION:
+        elif input.method == Constant.SHI_TOMASI_AND_GOOD_FEATURES_TO_TRACK_CORNER_DETECTION:
             output = self.shiTomasiAndGoodFeaturesToTrack(input.main_img, input.maxCorners)
         else:
             output = ''
@@ -43,10 +43,13 @@ class CornerDetectionTool(ToolI):
             for j in range(dst_norm.shape[1]):
                 if int(dst_norm[i, j]) > threshold:
                     print("(", i, ",", j, ")")
+                    output.corners.append([x, y])
                     cv2.circle(dst_norm_scaled, (j, i), 5, (0), 5)
         # Showing the result
 
         output.status = Constant.RESULT_MATCH_FOUND
+        output.point_1 = output.corners[0]
+        output.point_2 = output.corners[-1]
 
         plt.subplot(121), plt.imshow(full_img, cmap='gray')
         plt.title(self.source_window)  # , plt.xticks([]), plt.yticks([])
@@ -68,11 +71,14 @@ class CornerDetectionTool(ToolI):
         # Drawing a circle around corners
         for i in corners:
             x, y = i.ravel()
-            output.corners.append([x,y])
+            output.corners.append([x, y])
             cv2.circle(full, (x, y), 3, (0, 255, 0), 5)
 
         # Showing the result
         output.status = Constant.RESULT_MATCH_FOUND
+        output.point_1 = output.corners[0]
+        output.point_2 = output.corners[-1]
+
 
         plt.subplot(121), plt.imshow(full_img, cmap='gray')
         plt.title(self.source_window)  # , plt.xticks([]), plt.yticks([])

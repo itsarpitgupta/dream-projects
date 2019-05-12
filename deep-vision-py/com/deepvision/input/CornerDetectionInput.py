@@ -5,8 +5,9 @@ from com.deepvision.constants import Constant
 
 class CornerDetectionInput(BaseInput):
 
-    def __init__(self, type, method, threshold, blockSize, apertureSize, k_size, max_thresholding, maxCorners,
+    def __init__(self,main_img, type, method, threshold, blockSize, apertureSize, k_size, max_thresholding, maxCorners,
                  next_tool):
+        self.main_img=main_img
         self.type = type
         self.method = method
         self.threshold = threshold

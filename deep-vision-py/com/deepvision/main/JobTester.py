@@ -49,18 +49,20 @@ def main():
             if (ToolType.ANGLE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(AngleDetectionTool())
                 next_tool_input = jobLoader.createAngleDetectionInput(next_tool);
-                next_tool.point_1 = output.point_1
-                next_tool.point_2 = output.point_2
+                next_tool_input.point_1 = output.point_1
+                next_tool_input.point_2 = output.point_2
 
             if (ToolType.DISTANCE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(DistanceDetectionTool())
                 next_tool_input = jobLoader.createDistanceDetectionInput(next_tool);
-                next_tool.point_1 = output.point_1
-                next_tool.point_2 = output.point_2
+                next_tool_input.point_1 = output.point_1.copy()
+                next_tool_input.point_2 = output.point_2.copy()
 
             if (ToolType.EDGE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(EdgeDetectionTool())
                 next_tool_input = jobLoader.createEdgeDetectionInput(next_tool);
+
+            output = toolEngine.applyTool(next_tool_input)
 
 
 if __name__ == "__main__":
