@@ -1,11 +1,11 @@
-from com.deepvision.toolengine.ToolI import ToolI
-from com.deepvision.constants import ToolType, Constant
-from typing import TypeVar, Callable
-from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
-from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
+from com.deepvision.constants import ToolType, Constant
+from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
+from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
+from com.deepvision.toolengine.ToolI import ToolI
 
 
 class CornerDetectionTool(ToolI):
@@ -42,8 +42,7 @@ class CornerDetectionTool(ToolI):
         for i in range(dst_norm.shape[0]):
             for j in range(dst_norm.shape[1]):
                 if int(dst_norm[i, j]) > threshold:
-                    print("(", i, ",", j, ")")
-                    output.corners.append([x, y])
+                    output.corners.append([i, j])
                     cv2.circle(dst_norm_scaled, (j, i), 5, (0), 5)
         # Showing the result
 

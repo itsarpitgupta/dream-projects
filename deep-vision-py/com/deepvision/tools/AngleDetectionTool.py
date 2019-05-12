@@ -1,14 +1,9 @@
 import math
 
-from com.deepvision.toolengine.ToolI import ToolI
 from com.deepvision.constants import ToolType, Constant
 from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
 from com.deepvision.output.AngleDetectionOutput import AngleDetectionOutput
-from typing import TypeVar, Callable
-import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.spatial import distance as dist
+from com.deepvision.toolengine.ToolI import ToolI
 
 
 class AngleDetectionTool(ToolI):

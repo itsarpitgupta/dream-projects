@@ -63,8 +63,8 @@
         {
           "type": "DISTANCE_DETECTION",
           "method": "PX",
-          "point_1": "self.jobJsonData['tools'][0]['output'][0]['point_mid']",
-          "point_2": "self.jobJsonData['tools'][0]['output'][0]['point_2']",
+          "point_1": "outputList[0].point_mid",
+          "point_2": "outputList[1].point_2",
           "next_tool": []
         }
       ]

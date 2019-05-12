@@ -1,4 +1,4 @@
-from BaseOutput import BaseOutput
+from com.deepvision.output.BaseOutput import BaseOutput
 
 
 class DistanceDetectionOutput(BaseOutput):

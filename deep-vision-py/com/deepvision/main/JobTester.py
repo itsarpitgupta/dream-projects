@@ -1,28 +1,18 @@
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.job.JobLoader import JobLoader
 from com.deepvision.toolengine.ToolEngine import ToolEngine
-from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
+from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
 from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
 from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
 from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
-from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
-from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
-from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
-from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
-from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
-from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
-from com.deepvision.output.AngleDetectionOutput import AngleDetectionOutput
-from com.deepvision.constants.ToolType import ToolType
-from com.deepvision.constants import Constant
-from com.deepvision.job.JobLoader import JobLoader
+from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
 
 
 def main():
     toolEngine = ToolEngine();
     jobLoader = JobLoader();
     jobLoader.loadJob();
-    # print(len(jobLoader.tool_list))
-
+    outputList = [];
     for tool in jobLoader.tool_list:
         if (ToolType.CORNER_DETECTION.value == tool.type):
             toolEngine.registerTool(CornerDetectionTool())
@@ -36,7 +26,7 @@ def main():
             toolEngine.registerTool(EdgeDetectionTool())
 
         output = toolEngine.applyTool(tool)
-
+        outputList.append(output);
         for next_tool in tool.next_tool:
             if (ToolType.CORNER_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(CornerDetectionTool())
@@ -55,8 +45,8 @@ def main():
             if (ToolType.DISTANCE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(DistanceDetectionTool())
                 next_tool_input = jobLoader.createDistanceDetectionInput(next_tool);
-                next_tool_input.point_1 = jobLoader.getValueUsingReference(next_tool['point_1'])
-                next_tool_input.point_2 = jobLoader.getValueUsingReference(next_tool['point_2'])
+                next_tool_input.point_1 = eval(next_tool['point_1'])
+                next_tool_input.point_2 = eval(next_tool['point_2'])
 
             if (ToolType.EDGE_DETECTION.value == next_tool['type']):
                 toolEngine.registerTool(EdgeDetectionTool())
