@@ -22,27 +22,22 @@ class TemplateMatchingTool(ToolI):
 
     def matchTemplateWithSingleObject(self, main_img, temp_img, opt) -> TemplateMatchingOutput:
         output = TemplateMatchingOutput();
-        # reading the main image
-        full = cv2.imread(main_img)
-        full = cv2.cvtColor(full, cv2.COLOR_BGR2RGB)
 
-        plt.imshow(full)
+        # reading the main image
+        full_gray = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
 
         # reading the template image
-        template = cv2.imread(temp_img)
-        template = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
+        template_gray = cv2.imread(temp_img, cv2.IMREAD_GRAYSCALE)
 
         # getting width, height and channels
-        w, h, c = template.shape
-        print(template.shape)
-        plt.imshow(template)
+        w, h = template_gray.shape[::-1]
 
         # create a copy of main image for operations
-        img = full.copy()
+        img = full_gray.copy()
         method = eval(opt)
 
         # Apply template Matching
-        res = cv2.matchTemplate(img, template, method)
+        res = cv2.matchTemplate(img, template_gray, method)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
         # If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
@@ -52,28 +47,21 @@ class TemplateMatchingTool(ToolI):
             top_left = max_loc
         bottom_right = (top_left[0] + w, top_left[1] + h)
 
-        # cv2.rectangle(img, top_left, bottom_right, 255, 2)
-
         # Apply thresholing
-        threshold = 0.4
-        res_percent = int(max_val) / 10000000;
-        if res_percent >= threshold:
-            cv2.rectangle(img, top_left, bottom_right, 255, 2)
+        threshold = 0.8
+        if max_val >= threshold:
+            cv2.rectangle(img, top_left, bottom_right, (0, 255, 0), 2)
             output.status = Constant.RESULT_MATCH_FOUND
-            start = np.asarray(bottom_right)
-            end = np.asarray(top_left)
-            new_img = img[start[:-1][0]:start[1:][0], end[:-1][0]:end[1:][0], :]
-            # plt.imshow(new_img)
-            # plt.show()
-            output.result_template = new_img.copy()
+            output.top_left_pnt = top_left
+            output.bottom_right_pnt = bottom_right
         else:
             output.status = Constant.RESULT_NO_MATCH_FOUND
 
-        plt.subplot(121), plt.imshow(template, cmap='gray')
-        plt.title('Template Image')  # , plt.xticks([]), plt.yticks([])
+        plt.subplot(121), plt.imshow(template_gray, cmap='gray')
+        plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
         plt.subplot(122), plt.imshow(img, cmap='gray')
-        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle(opt + " [" + output.status + "]")
+        plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+        plt.suptitle(method)
 
         plt.show()
 
