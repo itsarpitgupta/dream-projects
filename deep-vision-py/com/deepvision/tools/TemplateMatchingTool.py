@@ -2,9 +2,12 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from com.deepvision.constants import ToolType, Constant
+from com.deepvision.constants.ToolType import ToolType
+from com.deepvision.input.CropInput import CropInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.output.TemplateMatchingOutput import TemplateMatchingOutput
 from com.deepvision.toolengine.ToolI import ToolI
+from com.deepvision.tools.CropTool import CropTool
 
 
 class TemplateMatchingTool(ToolI):
@@ -51,6 +54,12 @@ class TemplateMatchingTool(ToolI):
         threshold = 0.8
         if max_val >= threshold:
             cv2.rectangle(img, top_left, bottom_right, (0, 255, 0), 2)
+
+            # croptoolinput = CropInput(main_img, ToolType.CROP, Constant.CROP_BY_PERCENTAGE,
+            #                           0, 0, .25, .75)
+            # croptool = CropTool()
+            # croptool.process(croptoolinput)
+
             output.status = Constant.RESULT_MATCH_FOUND
             output.top_left_pnt = top_left
             output.bottom_right_pnt = bottom_right
@@ -58,9 +67,9 @@ class TemplateMatchingTool(ToolI):
             output.status = Constant.RESULT_NO_MATCH_FOUND
 
         plt.subplot(121), plt.imshow(template_gray, cmap='gray')
-        plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+        plt.title('Matching Result')  # , plt.xticks([]), plt.yticks([])
         plt.subplot(122), plt.imshow(img, cmap='gray')
-        plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
         plt.suptitle(method)
 
         plt.show()
