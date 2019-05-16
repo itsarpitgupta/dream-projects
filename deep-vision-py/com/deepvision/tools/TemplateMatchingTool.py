@@ -16,7 +16,6 @@ class TemplateMatchingTool(ToolI):
         return type == ToolType.TEMPLATE_MATCHING
 
     def process(self, input: TemplateMatchingInput) -> TemplateMatchingOutput:
-        output = TemplateMatchingOutput();
         if input.option == Constant.TEMPLATE_MATCHING_ON_SINGLE_OBJECT:
             output = self.matchTemplateWithSingleObject(input.main_img, input.temp_img, input.method)
         else:
@@ -54,25 +53,18 @@ class TemplateMatchingTool(ToolI):
         threshold = 0.8
         if max_val >= threshold:
             cv2.rectangle(img, top_left, bottom_right, (0, 255, 0), 2)
-
-            # croptoolinput = CropInput(main_img, ToolType.CROP, Constant.CROP_BY_PERCENTAGE,
-            #                           0, 0, .25, .75)
-            # croptool = CropTool()
-            # croptool.process(croptoolinput)
-
-            output.status = Constant.RESULT_MATCH_FOUND
             output.top_left_pnt = top_left
             output.bottom_right_pnt = bottom_right
+            output.status = Constant.TOOL_PASS
         else:
-            output.status = Constant.RESULT_NO_MATCH_FOUND
+            output.status = Constant.TOOL_FAIL
 
-        plt.subplot(121), plt.imshow(template_gray, cmap='gray')
-        plt.title('Matching Result')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(img, cmap='gray')
-        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle(method)
-
-        plt.show()
+        # plt.subplot(121), plt.imshow(template_gray, cmap='gray')
+        # plt.title('Matching Result')  # , plt.xticks([]), plt.yticks([])
+        # plt.subplot(122), plt.imshow(img, cmap='gray')
+        # plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
+        # plt.suptitle(method)
+        # plt.show()
 
         return output
 

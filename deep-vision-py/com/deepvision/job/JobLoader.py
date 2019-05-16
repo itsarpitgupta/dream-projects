@@ -1,6 +1,7 @@
 import json as json
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
+from com.deepvision.input.CropInput import CropInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
 from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
@@ -12,12 +13,12 @@ class JobLoader(object):
     jobJsonData = "";
 
     def loadJob(self):
-        with open("..//job//job1.json", "r") as read_file:
+        with open("..//job//job5.json", "r") as read_file:
             self.jobJsonData = json.load(read_file)
 
-        print('Job Name : ' + self.jobJsonData['job_name'])
-        print('Job Description : ' + self.jobJsonData['job_description'])
-        print('Job Created By :' + self.jobJsonData['created_by'])
+        # print('Job Name : ' + self.jobJsonData['job_name'])
+        # print('Job Description : ' + self.jobJsonData['job_description'])
+        # print('Job Created By :' + self.jobJsonData['created_by'])
         tools = self.jobJsonData['tools']
         for tool in tools:
             tool_type = tool['type']
@@ -58,4 +59,10 @@ class JobLoader(object):
         input = EdgeDetectionInput(tool['main_img'], tool['type'], tool['method'], tool['lower_threshold'],
                                    tool['upper_threshold'],
                                    tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'], tool['next_tool'])
+        return input
+
+    def createCropInput(self, tool) -> CropInput:
+        input = CropInput(tool['main_img'], tool['type'], tool['method'], tool['top_left'],
+                          tool['bottom_right'],
+                          tool['start_percentage'], tool['end_percentage'], tool['next_tool'])
         return input

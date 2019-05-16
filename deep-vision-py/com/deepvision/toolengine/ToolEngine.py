@@ -14,9 +14,6 @@ class ToolEngine(object):
         self.tool = tool;
 
     def applyTool(self, input: BaseInput) -> BaseOutput:
-        output = BaseOutput();
-        # print(input.type)
-        # print(ToolType.TEMPLATE_MATCHING.value)
         if (input.type == ToolType.TEMPLATE_MATCHING.value):
             output = self.tool.process(input)
         if (input.type == ToolType.CORNER_DETECTION.value):
@@ -27,6 +24,7 @@ class ToolEngine(object):
             output = self.tool.process(input)
         if (input.type == ToolType.DISTANCE_DETECTION.value):
             output = self.tool.process(input)
-        else:
-            output.status = ToolType.NO_TOOL
-        return output;
+        if (input.type == ToolType.CROP.value):
+            output = self.tool.process(input)
+
+        return output

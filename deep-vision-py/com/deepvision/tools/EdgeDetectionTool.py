@@ -24,7 +24,11 @@ class EdgeDetectionTool(ToolI):
 
     def cannyEdgeDetection(self, main_img, lower, upper, ksizX, ksizeY, edge_thickness) -> EdgeDetectionOutput:
         output = EdgeDetectionOutput()
-        full_img = cv2.imread(main_img)
+        if isinstance(main_img, np.ndarray):
+            full_img = main_img
+        else:
+            full_img = cv2.imread(main_img)
+
         full_gray = cv2.cvtColor(full_img, cv2.COLOR_BGR2GRAY)
 
         # LOWER THRESHOLD TO EITHER 0 OR 70% OF THE MEDIAN VALUE WHICH EVER IS GREATER
@@ -54,14 +58,14 @@ class EdgeDetectionTool(ToolI):
                 count = 1
         # Showing the result
 
-        plt.subplot(121), plt.imshow(full_img, cmap='gray')
-        plt.title('Original Image')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(edges, cmap='gray')
-        plt.title('Edge Detection')  # , plt.xticks([]), plt.yticks([])
-        plt.show()
+        # plt.subplot(121), plt.imshow(full_img, cmap='gray')
+        # plt.title('Original Image')  # , plt.xticks([]), plt.yticks([])
+        # plt.subplot(122), plt.imshow(edges, cmap='gray')
+        # plt.title('Edge Detection')  # , plt.xticks([]), plt.yticks([])
+        # plt.show()
 
-        output.status = Constant.RESULT_MATCH_FOUND
         output.point_1 = output.points[0]
         output.point_2 = output.points[-1]
-        output.point_mid = output.points[int(len(output.points)/2)]
-        return output;
+        output.point_mid = output.points[int(len(output.points) / 2)]
+        output.status = Constant.TOOL_PASS
+        return output

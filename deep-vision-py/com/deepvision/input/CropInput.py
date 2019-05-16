@@ -5,7 +5,7 @@ from com.deepvision.constants import Constant
 
 class CropInput(BaseInput):
 
-    def __init__(self, main_ing, type, method, top_left, bottom_right, start_percentage, end_percentage):
+    def __init__(self, main_ing, type, method, top_left, bottom_right, start_percentage, end_percentage, next_tool):
         self.type = type
         self.top_left = top_left
         self.bottom_right = bottom_right
@@ -13,6 +13,7 @@ class CropInput(BaseInput):
         self.method = method
         self.start_percentage = start_percentage
         self.end_percentage = end_percentage
+        self.next_tool = next_tool
 
     # default values
     type = ToolType.CROP
@@ -21,3 +22,4 @@ class CropInput(BaseInput):
     bottom_right = []
     start_percentage = 0.0
     end_percentage = 0.0
+    next_tool = []

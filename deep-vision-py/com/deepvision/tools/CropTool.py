@@ -30,15 +30,15 @@ class CropTool(ToolI):
 
         cropped = img[y1:y2, x1:x2]
 
-        plt.subplot(121), plt.imshow(img, cmap='gray')
-        plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(cropped, cmap='gray')
-        plt.title('Cropped Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('Crop By Points')
-        plt.show()
+        # plt.subplot(121), plt.imshow(img, cmap='gray')
+        # plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
+        # plt.subplot(122), plt.imshow(cropped, cmap='gray')
+        # plt.title('Cropped Point')  # , plt.xticks([]), plt.yticks([])
+        # plt.suptitle('Crop By Points')
+        # plt.show()
 
         output.crop_image = cropped
-        output.status = Constant.RESULT_MATCH_FOUND
+        output.status = Constant.TOOL_PASS
         return output
 
     def cropByPercentage(self, main_img, start_percentage, end_percentage) -> CropOutput:
@@ -53,14 +53,14 @@ class CropTool(ToolI):
 
         cropped = img[x1:x2, y1:y2]
 
-        plt.subplot(121), plt.imshow(img, cmap='gray')
-        plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(cropped, cmap='gray')
-        plt.title('Cropped Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('Crop By Points')
-        plt.show()
+        # plt.subplot(121), plt.imshow(img, cmap='gray')
+        # plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
+        # plt.subplot(122), plt.imshow(cropped, cmap='gray')
+        # plt.title('Cropped Point')  # , plt.xticks([]), plt.yticks([])
+        # plt.suptitle('Crop By Points')
+        # plt.show()
 
         output.crop_image = cropped
-        output.status = Constant.RESULT_MATCH_FOUND
+        output.status = Constant.TOOL_PASS
 
         return output
