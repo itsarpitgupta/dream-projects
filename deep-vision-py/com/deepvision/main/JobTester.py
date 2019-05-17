@@ -7,7 +7,7 @@ from com.deepvision.tools.CropTool import CropTool
 from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
 from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
 from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
-from tqdm import tqdm
+# from tqdm import tqdm
 
 
 def main():

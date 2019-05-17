@@ -59,12 +59,12 @@ class TemplateMatchingTool(ToolI):
         else:
             output.status = Constant.TOOL_FAIL
 
-        # plt.subplot(121), plt.imshow(template_gray, cmap='gray')
-        # plt.title('Matching Result')  # , plt.xticks([]), plt.yticks([])
-        # plt.subplot(122), plt.imshow(img, cmap='gray')
-        # plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
-        # plt.suptitle(method)
-        # plt.show()
+        plt.subplot(121), plt.imshow(template_gray, cmap='gray')
+        plt.title('Matching Result')  # , plt.xticks([]), plt.yticks([])
+        plt.subplot(122), plt.imshow(img, cmap='gray')
+        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
+        plt.suptitle(method)
+        plt.show()
 
         return output
 
