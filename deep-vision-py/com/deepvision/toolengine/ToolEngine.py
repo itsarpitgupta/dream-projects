@@ -5,26 +5,27 @@ from com.deepvision.toolengine.ToolI import ToolI
 
 
 class ToolEngine(object):
-    tool = None;
+    tool = None
 
     def __init__(self):
-        self.tool = ToolI();
+        self.tool = ToolI()
 
     def registerTool(self, tool: ToolI):
-        self.tool = tool;
+        self.tool = tool
 
     def applyTool(self, input: BaseInput) -> BaseOutput:
-        if (input.type == ToolType.TEMPLATE_MATCHING.value):
-            output = self.tool.process(input)
-        if (input.type == ToolType.CORNER_DETECTION.value):
-            output = self.tool.process(input)
-        if (input.type == ToolType.EDGE_DETECTION.value):
-            output = self.tool.process(input)
-        if (input.type == ToolType.ANGLE_DETECTION.value):
-            output = self.tool.process(input)
-        if (input.type == ToolType.DISTANCE_DETECTION.value):
-            output = self.tool.process(input)
-        if (input.type == ToolType.CROP.value):
-            output = self.tool.process(input)
+        output = self.tool.process(input)
+        # if (input.type == ToolType.TEMPLATE_MATCHING.value):
+        #     output = self.tool.process(input)
+        # if (input.type == ToolType.CORNER_DETECTION.value):
+        #     output = self.tool.process(input)
+        # if (input.type == ToolType.EDGE_DETECTION.value):
+        #     output = self.tool.process(input)
+        # if (input.type == ToolType.ANGLE_DETECTION.value):
+        #     output = self.tool.process(input)
+        # if (input.type == ToolType.DISTANCE_DETECTION.value):
+        #     output = self.tool.process(input)
+        # if (input.type == ToolType.CROP.value):
+        #     output = self.tool.process(input)
 
         return output

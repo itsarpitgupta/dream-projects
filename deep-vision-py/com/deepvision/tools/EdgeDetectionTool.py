@@ -58,11 +58,11 @@ class EdgeDetectionTool(ToolI):
                 count = 1
         # Showing the result
 
-        # plt.subplot(121), plt.imshow(full_img, cmap='gray')
-        # plt.title('Original Image')  # , plt.xticks([]), plt.yticks([])
-        # plt.subplot(122), plt.imshow(edges, cmap='gray')
-        # plt.title('Edge Detection')  # , plt.xticks([]), plt.yticks([])
-        # plt.show()
+        plt.subplot(121), plt.imshow(full_img, cmap='gray')
+        plt.title('Original Image')  # , plt.xticks([]), plt.yticks([])
+        plt.subplot(122), plt.imshow(edges, cmap='gray')
+        plt.title('Edge Detection')  # , plt.xticks([]), plt.yticks([])
+        plt.show()
 
         output.point_1 = output.points[0]
         output.point_2 = output.points[-1]

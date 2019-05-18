@@ -6,6 +6,7 @@ from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
 from com.deepvision.tools.CropTool import CropTool
 from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
 from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
+from com.deepvision.tools.PixelCountTool import PixelCountTool
 from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
 from tqdm import tqdm
 
@@ -13,10 +14,10 @@ from tqdm import tqdm
 def main():
     # for x in tqdm(range(1)):
 
-    toolEngine = ToolEngine();
-    jobLoader = JobLoader();
-    jobLoader.loadJob();
-    outputList = [];
+    toolEngine = ToolEngine()
+    jobLoader = JobLoader()
+    jobLoader.loadJob()
+    outputList = []
     for tool in jobLoader.tool_list:
         print(tool.type + " : ")
 
@@ -32,10 +33,12 @@ def main():
             toolEngine.registerTool(EdgeDetectionTool())
         if (ToolType.CROP.value == tool.type):
             toolEngine.registerTool(CropTool())
+        if (ToolType.PIXEL_COUNT.value == tool.type):
+            toolEngine.registerTool(PixelCountTool())
 
         output = toolEngine.applyTool(tool)
         print(output.status)
-        outputList.append(output);
+        outputList.append(output)
         # Next tool execution
         next_tool = tool.next_tool
         i = 0
@@ -72,6 +75,12 @@ def main():
                 next_tool_input = jobLoader.createCropInput(next_tool[i])
                 next_tool_input.top_left = eval(next_tool[i]['top_left'])
                 next_tool_input.bottom_right = eval(next_tool[i]['bottom_right'])
+
+            if (ToolType.PIXEL_COUNT.value == next_tool[i]['type']):
+                toolEngine.registerTool(PixelCountTool())
+                next_tool_input = jobLoader.createPixelCountInput(next_tool[i])
+                # next_tool_input.top_left = eval(next_tool[i]['top_left'])
+                # next_tool_input.bottom_right = eval(next_tool[i]['bottom_right'])
 
             output = toolEngine.applyTool(next_tool_input)
             print(output.status)

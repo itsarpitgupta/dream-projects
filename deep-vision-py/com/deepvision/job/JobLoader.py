@@ -2,6 +2,7 @@ import json as json
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 from com.deepvision.input.CropInput import CropInput
+from com.deepvision.input.PixelCountInput import PixelCountInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
 from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
@@ -13,7 +14,7 @@ class JobLoader(object):
     jobJsonData = "";
 
     def loadJob(self):
-        with open("..//job//job5.json", "r") as read_file:
+        with open("..//job//job7.json", "r") as read_file:
             self.jobJsonData = json.load(read_file)
 
         # print('Job Name : ' + self.jobJsonData['job_name'])
@@ -32,7 +33,10 @@ class JobLoader(object):
                 input = self.createDistanceDetectionInput(tool)
             if (ToolType.EDGE_DETECTION.value == tool_type):
                 input = self.createEdgeDetectionInput(tool)
-            self.tool_list.append(input);
+            if (ToolType.PIXEL_COUNT.value == tool_type):
+                input = self.createPixelCountInput(tool)
+
+            self.tool_list.append(input)
 
     def createCornerDetectionInput(self, tool) -> CornerDetectionInput:
         input = CornerDetectionInput(tool['main_img'], tool['type'], tool['method'], tool['threshold'],
@@ -65,4 +69,9 @@ class JobLoader(object):
         input = CropInput(tool['main_img'], tool['type'], tool['method'], tool['top_left'],
                           tool['bottom_right'],
                           tool['start_percentage'], tool['end_percentage'], tool['next_tool'])
+        return input
+
+    def createPixelCountInput(self, tool) -> PixelCountInput:
+        input = PixelCountInput(tool['main_img'], tool['type'], tool['method'], tool['option'], tool['threshold'],
+                                tool['max_value'], tool['block_size'], tool['constant'], tool['next_tool'])
         return input
