@@ -36,6 +36,7 @@ class PixelCountTool(ToolI):
         output.pixel_count = ret
         output.status = Constant.TOOL_PASS
         output.result_img = thresh
+        output.non_zero_pixel_count = cv2.countNonZero(thresh)
         return output
 
     def adaptiveImageThresholding(self, main_img, method, max_value, block_size, constant) -> PixelCountOutput:
@@ -55,4 +56,5 @@ class PixelCountTool(ToolI):
         output.max_color_value = img.max()
         output.status = Constant.TOOL_PASS
         output.result_img = thresh
+        output.non_zero_pixel_count = cv2.countNonZero(thresh)
         return output
