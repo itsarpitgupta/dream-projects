@@ -50,3 +50,12 @@ def draw_multiple_points(x_number_list, y_number_list, title):
     plt.xlabel("x - axis", fontsize=10)
     plt.ylabel("y - axis", fontsize=10)
     plt.show()
+
+
+def displayImageOutput(main_img, main_img_title, result_img, result_img_title, title):
+    plt.subplot(121), plt.imshow(main_img, cmap='gray')
+    plt.title(main_img_title)  # , plt.xticks([]), plt.yticks([])
+    plt.subplot(122), plt.imshow(result_img, cmap='gray')
+    plt.title(result_img_title)  # , plt.xticks([]), plt.yticks([])
+    plt.suptitle(title)
+    plt.show()

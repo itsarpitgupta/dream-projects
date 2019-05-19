@@ -13,6 +13,7 @@ class ToolEngine(object):
         self.tool = tool
 
     def applyTool(self, input: BaseInput) -> BaseOutput:
+        self.tool.display = input.display
         output = self.tool.process(input)
         # if (input.type == ToolType.TEMPLATE_MATCHING.value):
         #     output = self.tool.process(input)

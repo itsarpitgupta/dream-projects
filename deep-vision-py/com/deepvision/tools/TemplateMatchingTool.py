@@ -1,5 +1,4 @@
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 
 from com.deepvision.constants import ToolType, Constant
@@ -7,6 +6,7 @@ from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.output.TemplateMatchingOutput import TemplateMatchingOutput
 from com.deepvision.toolengine.ToolI import ToolI
+from com.deepvision.util.displayutil import displayImageOutput
 
 
 class TemplateMatchingTool(ToolI):
@@ -48,8 +48,8 @@ class TemplateMatchingTool(ToolI):
             top_left = max_loc
         bottom_right = (top_left[0] + w, top_left[1] + h)
 
-        print("Top left Point")
-        print(top_left)
+        # print("Top left Point")
+        # print(top_left)
 
         # Apply thresholing
         threshold = 0.8
@@ -61,12 +61,9 @@ class TemplateMatchingTool(ToolI):
         else:
             output.status = Constant.TOOL_FAIL
 
-        plt.subplot(121), plt.imshow(template_gray, cmap='gray')
-        plt.title('Matching Result')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(img, cmap='gray')
-        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle(method)
-        plt.show()
+        if self.display:
+            displayImageOutput(main_img=template_gray, main_img_title="Matching Result", result_img=img,
+                               result_img_title="Detected Point", title=opt)
 
         return output
 
@@ -97,14 +94,8 @@ class TemplateMatchingTool(ToolI):
             if output.status != Constant.RESULT_MATCH_FOUND:
                 output.status = Constant.RESULT_NO_MATCH_FOUND
 
-        plt.subplot(121), plt.imshow(template, cmap='gray')
-        plt.title('Template Image')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(img_rgb, cmap='gray')
-        plt.title('Detected Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('cv2.TM_CCOEFF_NORMED')
-
-        plt.show()
-
-        # cv2.imwrite('res.png', img_rgb)
+        if self.display:
+            displayImageOutput(main_img=template, main_img_title="Matching Result", result_img=img_rgb,
+                               result_img_title="Detected Point", title="cv2.TM_CCOEFF_NORMED")
 
         return output

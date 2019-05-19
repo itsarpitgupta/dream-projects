@@ -20,18 +20,19 @@ class FixtureTool(ToolI):
                        bottom_right_pnt_gape) -> FixtureOutput:
         output = FixtureOutput()
 
-        draw_multiple_points(x_number_list=[top_left_pnt[0], bottom_right_pnt[0]],
-                             y_number_list=[top_left_pnt[1],
-                                            bottom_right_pnt[1]], title="Template matching points")
+        if self.display:
+            draw_multiple_points(x_number_list=[top_left_pnt[0], bottom_right_pnt[0]],
+                                 y_number_list=[top_left_pnt[1],
+                                                bottom_right_pnt[1]], title="Template matching points")
 
         next_top_left_pnt = [top_left_pnt_gape[0] + top_left_pnt[0], top_left_pnt_gape[1] + top_left_pnt[1]]
         next_bottom_right_pnt = [bottom_right_pnt_gape[0] + bottom_right_pnt[0],
                                  bottom_right_pnt_gape[1] + bottom_right_pnt[1]]
 
-        # draw_single_point(xpnt=next_top_left_pnt[0], ypnt=next_top_left_pnt[1])
-        draw_multiple_points(x_number_list=[next_top_left_pnt[0], next_bottom_right_pnt[0]],
-                             y_number_list=[next_top_left_pnt[1],
-                                            next_bottom_right_pnt[1]], title="Fixture points")
+        if self.display:
+            draw_multiple_points(x_number_list=[next_top_left_pnt[0], next_bottom_right_pnt[0]],
+                                 y_number_list=[next_top_left_pnt[1],
+                                                next_bottom_right_pnt[1]], title="Fixture points")
 
         output.status = Constant.TOOL_PASS
         output.next_top_left_pnt = next_top_left_pnt

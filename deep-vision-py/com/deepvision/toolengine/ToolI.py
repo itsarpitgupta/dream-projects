@@ -14,3 +14,5 @@ class ToolI(ABC, Generic[I, O]):
 
     def process(self, input: I) -> O:
         pass
+
+    display = False

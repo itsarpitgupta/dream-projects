@@ -6,6 +6,7 @@
   "modified_by": "",
   "modified_date_time": "",
   "img_source": "",
+  "display": "ON",
   "tools": [
     {
       "type": "PIXEL_COUNT",
@@ -15,7 +16,7 @@
       ],
       "threshold": 127,
       "max_value": 255,
-      "option": "PIXEL_COUNT_TOOL_ON_BINARY_THRESHOLD",
+      "option": "BINARY",
       "block_size": 0,
       "constant": 0,
       "output": [

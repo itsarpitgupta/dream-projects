@@ -6,6 +6,7 @@ from com.deepvision.constants import ToolType, Constant
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
 from com.deepvision.toolengine.ToolI import ToolI
+from com.deepvision.util.displayutil import displayImageOutput
 
 
 class CornerDetectionTool(ToolI):
@@ -18,6 +19,7 @@ class CornerDetectionTool(ToolI):
 
     def process(self, input: CornerDetectionInput) -> CornerDetectionOutput:
         output = CornerDetectionOutput();
+
         if input.method == Constant.HARRIS_CORNER_DETECTION:
             output = self.harisCornerDetection(input.main_img, input.threshold, input.blockSize, input.apertureSize,
                                                input.k_size)
@@ -50,11 +52,10 @@ class CornerDetectionTool(ToolI):
         output.point_1 = output.corners[0]
         output.point_2 = output.corners[-1]
 
-        plt.subplot(121), plt.imshow(full_img, cmap='gray')
-        plt.title(self.source_window)  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(dst_norm_scaled, cmap='gray')
-        plt.title(self.corners_window)  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle("Corner Detection" + " [" + output.status + "]")
+        if self.display:
+            displayImageOutput(main_img=full_img, main_img_title=self.source_window, result_img=dst_norm_scaled,
+                               result_img_title=self.corners_window
+                               , title="Corner Detection" + " [" + output.status + "]")
 
         plt.show()
 
@@ -78,13 +79,9 @@ class CornerDetectionTool(ToolI):
         output.point_1 = output.corners[0]
         output.point_2 = output.corners[-1]
 
-
-        plt.subplot(121), plt.imshow(full_img, cmap='gray')
-        plt.title(self.source_window)  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(full, cmap='gray')
-        plt.title(self.corners_window)  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle("Corner Detection" + " [" + output.status + "]")
-
-        plt.show()
+        if self.display:
+            displayImageOutput(main_img=full_img, main_img_title=self.source_window, result_img=full,
+                               result_img_title=self.corners_window
+                               , title="Corner Detection" + " [" + output.status + "]")
 
         return output

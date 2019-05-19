@@ -6,6 +6,7 @@
   "modified_by": "",
   "modified_date_time": "",
   "img_source": "",
+  "display": "ON",
   "tools": [
     {
       "type": "PIXEL_COUNT",

@@ -6,6 +6,7 @@ from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.PixelCountInput import PixelCountInput
 from com.deepvision.output.PixelCountOutput import PixelCountOutput
 from com.deepvision.toolengine.ToolI import ToolI
+from com.deepvision.util.displayutil import displayImageOutput
 
 
 class PixelCountTool(ToolI):
@@ -28,12 +29,8 @@ class PixelCountTool(ToolI):
         count_white_px = cv2.countNonZero(thresh)
         count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
 
-        plt.subplot(121), plt.imshow(img, cmap='gray')
-        plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(thresh, cmap='gray')
-        plt.title(method)  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('Binary Image Threshold')
-        plt.show()
+        displayImageOutput(main_img=img, main_img_title="Main Img", result_img=thresh,
+                           result_img_title=method, title="Adaptive Image Threshold")
 
         output.max_color_value = img.max()
         output.pixel_count = ret
@@ -52,12 +49,8 @@ class PixelCountTool(ToolI):
         count_white_px = cv2.countNonZero(thresh)
         count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
 
-        plt.subplot(121), plt.imshow(img, cmap='gray')
-        plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(thresh, cmap='gray')
-        plt.title(method)  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('Adaptive Image Threshold')
-        plt.show()
+        displayImageOutput(main_img=img, main_img_title="Main Img", result_img=thresh,
+                           result_img_title=method, title="Adaptive Image Threshold")
 
         output.max_color_value = img.max()
         output.status = Constant.TOOL_PASS

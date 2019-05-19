@@ -6,6 +6,7 @@ from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.CropInput import CropInput
 from com.deepvision.output.CropOutput import CropOutput
 from com.deepvision.toolengine.ToolI import ToolI
+from com.deepvision.util.displayutil import displayImageOutput
 
 
 class CropTool(ToolI):
@@ -30,12 +31,9 @@ class CropTool(ToolI):
 
         cropped = img[y1:y2, x1:x2]
 
-        plt.subplot(121), plt.imshow(img, cmap='gray')
-        plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(cropped, cmap='gray')
-        plt.title('Cropped Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('Crop By Points')
-        plt.show()
+        if self.display:
+            displayImageOutput(main_img=img, main_img_title="Main Img", result_img=cropped,
+                               result_img_title="Cropped Point", title="Crop By Points")
 
         output.crop_image = cropped
         output.status = Constant.TOOL_PASS
@@ -53,12 +51,9 @@ class CropTool(ToolI):
 
         cropped = img[x1:x2, y1:y2]
 
-        plt.subplot(121), plt.imshow(img, cmap='gray')
-        plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(cropped, cmap='gray')
-        plt.title('Cropped Point')  # , plt.xticks([]), plt.yticks([])
-        plt.suptitle('Crop By Points')
-        plt.show()
+        if self.display:
+            displayImageOutput(main_img=img, main_img_title="Main Img", result_img=cropped,
+                               result_img_title="Cropped Point", title="Crop By Percentage")
 
         output.crop_image = cropped
         output.status = Constant.TOOL_PASS

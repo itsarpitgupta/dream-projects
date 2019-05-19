@@ -13,7 +13,6 @@ from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
 
 
 def main():
-    # for x in tqdm(range(1)):
 
     toolEngine = ToolEngine()
     jobLoader = JobLoader()
@@ -41,8 +40,8 @@ def main():
 
         output = toolEngine.applyTool(tool)
         print(output.status)
-        print(output.top_left_pnt)
-        print(output.bottom_right_pnt)
+        # print(output.top_left_pnt)
+        # print(output.bottom_right_pnt)
         outputList.append(output)
         # Next tool execution
         next_tool = tool.next_tool

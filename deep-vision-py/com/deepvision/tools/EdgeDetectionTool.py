@@ -6,6 +6,7 @@ from com.deepvision.constants import ToolType, Constant
 from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 from com.deepvision.output.EdgeDetectionOutput import EdgeDetectionOutput
 from com.deepvision.toolengine.ToolI import ToolI
+from com.deepvision.util.displayutil import displayImageOutput
 
 
 class EdgeDetectionTool(ToolI):
@@ -63,6 +64,10 @@ class EdgeDetectionTool(ToolI):
         plt.subplot(122), plt.imshow(edges, cmap='gray')
         plt.title('Edge Detection')  # , plt.xticks([]), plt.yticks([])
         plt.show()
+
+        if self.display:
+            displayImageOutput(main_img=full_img, main_img_title="Original Image", result_img=edges,
+                               result_img_title='Edge Detection', title="")
 
         output.point_1 = output.points[0]
         output.point_2 = output.points[-1]
