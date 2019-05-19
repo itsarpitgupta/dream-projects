@@ -1,8 +1,9 @@
 from __future__ import print_function
+
+import argparse
+
 import cv2 as cv
 import numpy as np
-import argparse
-from matplotlib import pyplot as plt
 
 source_window = 'Source image'
 corners_window = 'Corners detected'

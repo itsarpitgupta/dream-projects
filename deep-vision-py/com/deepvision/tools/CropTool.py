@@ -1,11 +1,11 @@
 import cv2 as cv2
+import matplotlib.pyplot as plt
+
 from com.deepvision.constants import Constant
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.CropInput import CropInput
 from com.deepvision.output.CropOutput import CropOutput
 from com.deepvision.toolengine.ToolI import ToolI
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 class CropTool(ToolI):

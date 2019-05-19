@@ -1,17 +1,13 @@
-from com.deepvision.toolengine.ToolEngine import ToolEngine
-from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
-from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
-from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
-from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
-from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
-from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
-from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
-from com.deepvision.output.CornerDetectionOutput import CornerDetectionOutput
-from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
-from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
-from com.deepvision.output.AngleDetectionOutput import AngleDetectionOutput
-from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.constants import Constant
+from com.deepvision.constants.ToolType import ToolType
+from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
+from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
+from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
+from com.deepvision.toolengine.ToolEngine import ToolEngine
+from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
+from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
+from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
+
 
 class ToolEngineTest(object):
 

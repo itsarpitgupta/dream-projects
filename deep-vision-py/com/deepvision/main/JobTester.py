@@ -1,14 +1,15 @@
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.job.JobLoader import JobLoader
 from com.deepvision.toolengine.ToolEngine import ToolEngine
+from com.deepvision.tools import FixtureTool
 from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
 from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
 from com.deepvision.tools.CropTool import CropTool
 from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
 from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
+from com.deepvision.tools.FixtureTool import FixtureTool
 from com.deepvision.tools.PixelCountTool import PixelCountTool
 from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
-from tqdm import tqdm
 
 
 def main():
@@ -35,9 +36,13 @@ def main():
             toolEngine.registerTool(CropTool())
         if (ToolType.PIXEL_COUNT.value == tool.type):
             toolEngine.registerTool(PixelCountTool())
+        if (ToolType.FIXTURE.value == tool.type):
+            toolEngine.registerTool(FixtureTool())
 
         output = toolEngine.applyTool(tool)
         print(output.status)
+        print(output.top_left_pnt)
+        print(output.bottom_right_pnt)
         outputList.append(output)
         # Next tool execution
         next_tool = tool.next_tool
@@ -79,11 +84,17 @@ def main():
             if (ToolType.PIXEL_COUNT.value == next_tool[i]['type']):
                 toolEngine.registerTool(PixelCountTool())
                 next_tool_input = jobLoader.createPixelCountInput(next_tool[i])
-                # next_tool_input.top_left = eval(next_tool[i]['top_left'])
-                # next_tool_input.bottom_right = eval(next_tool[i]['bottom_right'])
+
+            if (ToolType.FIXTURE.value == next_tool[i]['type']):
+                toolEngine.registerTool(FixtureTool())
+                next_tool_input = jobLoader.createFixtureInput(next_tool[i])
+                next_tool_input.top_left_pnt = eval(next_tool[i]['top_left_pnt'])
+                next_tool_input.bottom_right_pnt = eval(next_tool[i]['bottom_right_pnt'])
 
             output = toolEngine.applyTool(next_tool_input)
             print(output.status)
+            # print(output.next_top_left_pnt)
+            # print(output.next_bottom_right_pnt)
             outputList.append(output)
             next_tool = next_tool[i]['next_tool']
 

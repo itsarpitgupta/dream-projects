@@ -1,12 +1,14 @@
 import json as json
+
 from com.deepvision.constants.ToolType import ToolType
+from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 from com.deepvision.input.CropInput import CropInput
+from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
+from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
+from com.deepvision.input.FixtureInput import FixtureInput
 from com.deepvision.input.PixelCountInput import PixelCountInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
-from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
-from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
-from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 
 
 class JobLoader(object):
@@ -14,7 +16,7 @@ class JobLoader(object):
     jobJsonData = "";
 
     def loadJob(self):
-        with open("..//job//job7.json", "r") as read_file:
+        with open("..//job//job8.json", "r") as read_file:
             self.jobJsonData = json.load(read_file)
 
         # print('Job Name : ' + self.jobJsonData['job_name'])
@@ -35,6 +37,8 @@ class JobLoader(object):
                 input = self.createEdgeDetectionInput(tool)
             if (ToolType.PIXEL_COUNT.value == tool_type):
                 input = self.createPixelCountInput(tool)
+            if (ToolType.FIXTURE.value == tool_type):
+                input = self.createFixtureInput(tool)
 
             self.tool_list.append(input)
 
@@ -74,4 +78,9 @@ class JobLoader(object):
     def createPixelCountInput(self, tool) -> PixelCountInput:
         input = PixelCountInput(tool['main_img'], tool['type'], tool['method'], tool['option'], tool['threshold'],
                                 tool['max_value'], tool['block_size'], tool['constant'], tool['next_tool'])
+        return input
+
+    def createFixtureInput(self, tool):
+        input = FixtureInput(tool['type'], tool['top_left_pnt'], tool['bottom_right_pnt'], tool['top_left_pnt_gape'],
+                             tool['bottom_right_pnt_gape'], tool['next_tool'])
         return input

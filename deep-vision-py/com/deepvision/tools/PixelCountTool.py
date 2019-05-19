@@ -24,7 +24,10 @@ class PixelCountTool(ToolI):
         output = PixelCountOutput()
         img = cv2.imread(main_img, 0)
         ret, thresh = cv2.threshold(img, threshold, max_value, eval(method[0]))
-        print(ret)
+
+        count_white_px = cv2.countNonZero(thresh)
+        count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
+
         plt.subplot(121), plt.imshow(img, cmap='gray')
         plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
         plt.subplot(122), plt.imshow(thresh, cmap='gray')
@@ -36,7 +39,8 @@ class PixelCountTool(ToolI):
         output.pixel_count = ret
         output.status = Constant.TOOL_PASS
         output.result_img = thresh
-        output.non_zero_pixel_count = cv2.countNonZero(thresh)
+        output.non_zero_pixel_count = count_white_px
+        output.zero_pixel_count = count_black_px
         return output
 
     def adaptiveImageThresholding(self, main_img, method, max_value, block_size, constant) -> PixelCountOutput:
@@ -45,6 +49,8 @@ class PixelCountTool(ToolI):
 
         thresh = cv2.adaptiveThreshold(img, max_value, eval(method[0]), eval(method[1]), block_size, constant)
 
+        count_white_px = cv2.countNonZero(thresh)
+        count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
 
         plt.subplot(121), plt.imshow(img, cmap='gray')
         plt.title('Main Img')  # , plt.xticks([]), plt.yticks([])
@@ -56,5 +62,6 @@ class PixelCountTool(ToolI):
         output.max_color_value = img.max()
         output.status = Constant.TOOL_PASS
         output.result_img = thresh
-        output.non_zero_pixel_count = cv2.countNonZero(thresh)
+        output.non_zero_pixel_count = count_white_px
+        output.zero_pixel_count = count_black_px
         return output

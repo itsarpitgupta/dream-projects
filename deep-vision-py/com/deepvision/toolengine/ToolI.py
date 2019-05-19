@@ -1,6 +1,7 @@
-from abc import ABC, abstractmethod
-from com.deepvision.constants import ToolType
+from abc import ABC
 from typing import TypeVar, Generic
+
+from com.deepvision.constants import ToolType
 
 I = TypeVar('I')  # Declare input type variable
 O = TypeVar('O')  # Declare output type variable

@@ -1,6 +1,4 @@
 import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plt
 
 img = cv.imread("D:\Vision_Application\hul_bad_230219\Bad\Image00111.BMP")
 # img = cv.imread("D:\github-repos\dream-projects\deep-vision-py\DATA\template.jpg")

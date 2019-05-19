@@ -1,13 +1,12 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+
 from com.deepvision.constants import ToolType, Constant
 from com.deepvision.constants.ToolType import ToolType
-from com.deepvision.input.CropInput import CropInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.output.TemplateMatchingOutput import TemplateMatchingOutput
 from com.deepvision.toolengine.ToolI import ToolI
-from com.deepvision.tools.CropTool import CropTool
 
 
 class TemplateMatchingTool(ToolI):
@@ -48,6 +47,9 @@ class TemplateMatchingTool(ToolI):
         else:
             top_left = max_loc
         bottom_right = (top_left[0] + w, top_left[1] + h)
+
+        print("Top left Point")
+        print(top_left)
 
         # Apply thresholing
         threshold = 0.8

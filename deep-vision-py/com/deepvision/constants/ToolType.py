@@ -10,4 +10,7 @@ class ToolType(enum.Enum):
     ANGLE_DETECTION = 'ANGLE_DETECTION'
     CROP = 'CROP'
     PIXEL_COUNT = 'PIXEL_COUNT'
+    FIXTURE = 'FIXTURE'
     NO_TOOL = 'NO_TOOL'
+
+

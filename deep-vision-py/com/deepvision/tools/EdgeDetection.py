@@ -1,8 +1,8 @@
 from __future__ import print_function
-import cv2
-import numpy as np
+
 import argparse
-from matplotlib import pyplot as plt
+
+import cv2
 
 source_window = 'Source image'
 edge_window = 'Edge detected'
