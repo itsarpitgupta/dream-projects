@@ -25,7 +25,10 @@ class TemplateMatchingTool(ToolI):
         output = TemplateMatchingOutput();
 
         # reading the main image
-        full_gray = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
+        if isinstance(main_img, str):
+            full_gray = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
+        else:
+            full_gray = main_img
 
         # reading the template image
         template_gray = cv2.imread(temp_img, cv2.IMREAD_GRAYSCALE)

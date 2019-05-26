@@ -52,6 +52,7 @@ def main():
             if (ToolType.CORNER_DETECTION.value == next_tool[i]['type']):
                 toolEngine.registerTool(CornerDetectionTool())
                 next_tool_input = jobLoader.createCornerDetectionInput(next_tool[i])
+                next_tool_input.main_img = eval(next_tool[i]['main_img'])
 
             if (ToolType.TEMPLATE_MATCHING.value == next_tool[i]['type']):
                 toolEngine.registerTool(TemplateMatchingTool())
@@ -83,6 +84,7 @@ def main():
             if (ToolType.PIXEL_COUNT.value == next_tool[i]['type']):
                 toolEngine.registerTool(PixelCountTool())
                 next_tool_input = jobLoader.createPixelCountInput(next_tool[i])
+                next_tool_input.main_img = eval(next_tool[i]['main_img'])
 
             if (ToolType.FIXTURE.value == next_tool[i]['type']):
                 toolEngine.registerTool(FixtureTool())

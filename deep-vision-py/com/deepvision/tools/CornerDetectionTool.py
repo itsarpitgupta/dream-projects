@@ -62,17 +62,21 @@ class CornerDetectionTool(ToolI):
         return output
 
     def shiTomasiAndGoodFeaturesToTrack(self, main_img, maxCorners) -> CornerDetectionOutput:
-        output = CornerDetectionOutput();
-        full_img = cv2.imread(main_img)
-        full = cv2.cvtColor(full_img, cv2.COLOR_BGR2GRAY)
-        corners = cv2.goodFeaturesToTrack(full, maxCorners, 0.01, 10)
+        output = CornerDetectionOutput()
+        # reading the main image
+        if isinstance(main_img, str):
+            full_img = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
+        else:
+            full_img = main_img
+
+        corners = cv2.goodFeaturesToTrack(full_img, maxCorners, 0.01, 10)
         corners = np.int0(corners)
 
         # Drawing a circle around corners
         for i in corners:
             x, y = i.ravel()
             output.corners.append([x, y])
-            cv2.circle(full, (x, y), 3, (0, 255, 0), 5)
+            cv2.circle(full_img, (x, y), 3, (0, 255, 0), 5)
 
         # Showing the result
         output.status = Constant.RESULT_MATCH_FOUND
@@ -80,8 +84,8 @@ class CornerDetectionTool(ToolI):
         output.point_2 = output.corners[-1]
 
         if self.display:
-            displayImageOutput(main_img=full_img, main_img_title=self.source_window, result_img=full,
-                               result_img_title=self.corners_window
+            displayImageOutput(main_img=full_img, main_img_title="Original Image", result_img=full_img,
+                               result_img_title="Result Image"
                                , title="Corner Detection" + " [" + output.status + "]")
 
         return output

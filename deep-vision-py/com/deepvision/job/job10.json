@@ -6,7 +6,7 @@
   "modified_by": "",
   "modified_date_time": "",
   "img_source": "",
-  "display" : "ON",
+  "display": "ON",
   "tools": [
     {
       "type": "TEMPLATE_MATCHING",
@@ -53,7 +53,26 @@
                   "crop_image": []
                 }
               ],
-              "next_tool" : []
+              "next_tool": [
+                {
+                  "main_img": "outputList[2].crop_image",
+                  "type": "EDGE_DETECTION",
+                  "method": "CANNY_EDGE_DETECTION",
+                  "lower_threshold": 100,
+                  "upper_threshold": 200,
+                  "k_sizeX": 2,
+                  "k_sizeY": 3,
+                  "edge_thickness": 1,
+                  "output": [
+                    {
+                      "point_1": [],
+                      "point_2": [],
+                      "point_mid": []
+                    }
+                  ],
+                  "next_tool": []
+                }
+              ]
             }
           ]
         }

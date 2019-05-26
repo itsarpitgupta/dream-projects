@@ -9,4 +9,3 @@ class CornerDetectionOutput(BaseOutput):
 
     def __init__(self):
         super(CornerDetectionOutput, self).__init__()
-        print("corner detection init")
