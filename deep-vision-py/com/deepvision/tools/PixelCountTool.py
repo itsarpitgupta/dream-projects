@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 from com.deepvision.constants import Constant
 from com.deepvision.constants.ToolType import ToolType
+from com.deepvision.exception.DataValidationException import DataValidationException
 from com.deepvision.input.PixelCountInput import PixelCountInput
 from com.deepvision.output.PixelCountOutput import PixelCountOutput
 from com.deepvision.toolengine.ToolI import ToolI
@@ -23,43 +24,72 @@ class PixelCountTool(ToolI):
 
     def binaryImageThresholding(self, main_img, method, threshold, max_value) -> PixelCountOutput:
         output = PixelCountOutput()
-        img = cv2.imread(main_img, 0)
-        ret, thresh = cv2.threshold(img, threshold, max_value, eval(method[0]))
+        try:
+            if main_img is None or method is None or threshold is None or max_value is None:
+                raise DataValidationException('main_img, method, threshold or max_value should not be None')
 
-        count_white_px = cv2.countNonZero(thresh)
-        count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
+            # reading the main image
+            if isinstance(main_img, str):
+                full_img = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
+            else:
+                full_img = main_img
 
-        displayImageOutput(main_img=img, main_img_title="Main Img", result_img=thresh,
-                           result_img_title=method, title="Adaptive Image Threshold")
+            ret, thresh = cv2.threshold(full_img, threshold, max_value, eval(method[0]))
 
-        output.max_color_value = img.max()
-        output.pixel_count = ret
-        output.status = Constant.TOOL_PASS
-        output.result_img = thresh
-        output.non_zero_pixel_count = count_white_px
-        output.zero_pixel_count = count_black_px
+            count_white_px = cv2.countNonZero(thresh)
+            count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
+
+            if self.display:
+                displayImageOutput(main_img=full_img, main_img_title="Main Img", result_img=thresh,
+                                   result_img_title=method, title="Adaptive Image Threshold")
+
+            output.max_color_value = full_img.max()
+            output.pixel_count = ret
+            output.status = Constant.TOOL_PASS
+            output.result_img = thresh
+            output.non_zero_pixel_count = count_white_px
+            output.zero_pixel_count = count_black_px
+        except DataValidationException as data_exp:
+            print('DataValidationException :', data_exp.msg)
+            output.status = Constant.TOOL_FAIL
+        except Exception as exp:
+            print('Exception : ', exp.args)
+            output.status = Constant.TOOL_FAIL
+
         return output
 
     def adaptiveImageThresholding(self, main_img, method, max_value, block_size, constant) -> PixelCountOutput:
         output = PixelCountOutput()
-        # img = cv2.imread(main_img, 0)
+        try:
+            if main_img is None or method is None or block_size is None or max_value is None or constant is None:
+                raise DataValidationException('main_img, method, block_size, constant or max_value should not be None')
 
-        img = cv2.cvtColor(main_img,cv2.COLOR_BGR2GRAY)
+            # reading the main image
+            if isinstance(main_img, str):
+                full_img = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
+            else:
+                full_img = main_img
 
-        thresh = cv2.adaptiveThreshold(img, max_value, eval(method[0]), eval(method[1]), block_size, constant)
+            thresh = cv2.adaptiveThreshold(full_img, max_value, eval(method[0]), eval(method[1]), block_size, constant)
 
-        count_white_px = cv2.countNonZero(thresh)
-        count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
+            count_white_px = cv2.countNonZero(thresh)
+            count_black_px = thresh.shape[1] * thresh.shape[0] - count_white_px
 
-        displayImageOutput(main_img=img, main_img_title="Main Img", result_img=thresh,
-                           result_img_title=method, title="Adaptive Image Threshold")
+            if self.display:
+                displayImageOutput(main_img=full_img, main_img_title="Main Img", result_img=thresh,
+                                   result_img_title=method, title="Adaptive Image Threshold")
 
-        output.max_color_value = img.max()
-        output.status = Constant.TOOL_PASS
-        output.result_img = thresh
-        output.non_zero_pixel_count = count_white_px
-        output.zero_pixel_count = count_black_px
-        print(output.zero_pixel_count)
-        print(output.non_zero_pixel_count)
+            output.max_color_value = full_img.max()
+            output.status = Constant.TOOL_PASS
+            output.result_img = thresh
+            output.non_zero_pixel_count = count_white_px
+            output.zero_pixel_count = count_black_px
+
+        except DataValidationException as data_exp:
+            print('DataValidationException :', data_exp.msg)
+            output.status = Constant.TOOL_FAIL
+        except Exception as exp:
+            print('Exception : ', exp.args)
+            output.status = Constant.TOOL_FAIL
 
         return output

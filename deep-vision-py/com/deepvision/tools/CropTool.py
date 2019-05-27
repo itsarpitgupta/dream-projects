@@ -3,6 +3,7 @@ import numpy as np
 from scipy._lib.six import xrange
 from com.deepvision.constants import Constant
 from com.deepvision.constants.ToolType import ToolType
+from com.deepvision.exception.DataValidationException import DataValidationException
 from com.deepvision.input.CropInput import CropInput
 from com.deepvision.output.CropOutput import CropOutput
 from com.deepvision.toolengine.ToolI import ToolI
@@ -23,24 +24,34 @@ class CropTool(ToolI):
 
     def cropByPoints(self, main_img, top_left, bottom_right) -> CropOutput:
         output = CropOutput()
-        if isinstance(main_img, str):
-            img = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
-        else:
-            img = main_img
+        try:
+            # validate the points
+            if main_img is None or top_left is None or bottom_right is None:
+                raise DataValidationException("main_img, top_left or bottom_right should not be None")
 
+            if isinstance(main_img, str):
+                img = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
+            else:
+                img = main_img
 
-        x1, y1 = top_left[0], top_left[1]
+            x1, y1 = top_left[0], top_left[1]
+            x2, y2 = bottom_right[0], bottom_right[1]
+            cropped = img[y1:y2, x1:x2]
 
-        x2, y2 = bottom_right[0], bottom_right[1]
+            if self.display:
+                displayImageOutput(main_img=img, main_img_title="Main Img", result_img=cropped,
+                                   result_img_title="Cropped Point", title="Crop By Points")
 
-        cropped = img[y1:y2, x1:x2]
+            output.crop_image = cropped
+            output.status = Constant.TOOL_PASS
 
-        if self.display:
-            displayImageOutput(main_img=img, main_img_title="Main Img", result_img=cropped,
-                               result_img_title="Cropped Point", title="Crop By Points")
+        except DataValidationException as data_exp:
+            print('DataValidationException :', data_exp.msg)
+            output.status = Constant.TOOL_FAIL
+        except Exception as exp:
+            print('Exception : ', exp.args)
+            output.status = Constant.TOOL_FAIL
 
-        output.crop_image = cropped
-        output.status = Constant.TOOL_PASS
         return output
 
     def cropByPercentage(self, main_img, start_percentage, end_percentage) -> CropOutput:
