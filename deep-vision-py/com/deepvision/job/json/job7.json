@@ -1,0 +1,32 @@
+{
+  "job_name": "test_6",
+  "job_description": "pixel count",
+  "created_by": "Arpit",
+  "created_date_time": "",
+  "modified_by": "",
+  "modified_date_time": "",
+  "img_source": "",
+  "display": "ON",
+  "tools": [
+    {
+      "type": "PIXEL_COUNT",
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\crossword.jpg",
+      "method": [
+        "cv2.ADAPTIVE_THRESH_MEAN_C",
+        "cv2.THRESH_BINARY"
+      ],
+      "threshold": 0,
+      "max_value": 255,
+      "option": "ADAPTIVE",
+      "block_size": 11,
+      "constant": 8,
+      "output": [
+        {
+          "pixel_count": 0,
+          "status": ""
+        }
+      ],
+      "next_tool": []
+    }
+  ]
+}

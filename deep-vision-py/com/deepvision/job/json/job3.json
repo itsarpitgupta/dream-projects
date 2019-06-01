@@ -1,0 +1,74 @@
+{
+  "job_name": "test_2",
+  "job_description": "Edge and Distance",
+  "created_by": "Arpit",
+  "created_date_time": "",
+  "modified_by": "",
+  "modified_date_time": "",
+  "display": "ON",
+  "img_source": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\edge.BMP",
+  "tools": [
+    {
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\edge.BMP",
+      "type": "EDGE_DETECTION",
+      "method": "CANNY_EDGE_DETECTION",
+      "lower_threshold": 100,
+      "upper_threshold": 200,
+      "k_sizeX": 2,
+      "k_sizeY": 3,
+      "edge_thickness": 1,
+      "output": [
+        {
+          "point_1": [
+            5,
+            2
+          ],
+          "point_2": [
+            36,
+            12
+          ],
+          "point_mid": [
+            18,
+            6
+          ]
+        }
+      ],
+      "next_tool": []
+    },
+    {
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\edge.BMP",
+      "type": "EDGE_DETECTION",
+      "method": "CANNY_EDGE_DETECTION",
+      "lower_threshold": 100,
+      "upper_threshold": 200,
+      "k_sizeX": 2,
+      "k_sizeY": 3,
+      "edge_thickness": 1,
+      "output": [
+        {
+          "point_1": [
+            5,
+            2
+          ],
+          "point_2": [
+            36,
+            12
+          ],
+          "point_mid": [
+            18,
+            6
+          ]
+        }
+      ],
+      "next_tool": [
+        {
+          "type": "DISTANCE_DETECTION",
+          "method": "PX",
+          "point_1": "outputList[0].point_mid",
+          "point_2": "outputList[1].point_2",
+          "next_tool": []
+        }
+      ]
+    }
+  ]
+}

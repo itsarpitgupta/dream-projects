@@ -10,6 +10,8 @@ from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 from com.deepvision.input.FixtureInput import FixtureInput
 from com.deepvision.input.PixelCountInput import PixelCountInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
+from com.deepvision.input.TextDetectionInput import TextDetectionInput
+from com.deepvision.input.TextRecoginationInput import TextRecoginationInput
 from com.deepvision.job.Job import Job
 
 
@@ -20,7 +22,7 @@ class JobLoader(object):
     result_dict = {}
 
     def loadJob(self):
-        with open("..//job//job12.json", "r") as read_file:
+        with open("..//job//json//job12.json", "r") as read_file:
             self.jobJsonData = json.load(read_file)
 
         # print('Job Name : ' + self.jobJsonData['job_name'])
@@ -36,18 +38,24 @@ class JobLoader(object):
 
             if (ToolType.CORNER_DETECTION.value == tool_type):
                 input = self.createCornerDetectionInput(tool)
-            if (ToolType.TEMPLATE_MATCHING.value == tool_type):
+            elif (ToolType.TEMPLATE_MATCHING.value == tool_type):
                 input = self.createTemplateMatchingInput(tool)
-            if (ToolType.ANGLE_DETECTION.value == tool_type):
+            elif (ToolType.ANGLE_DETECTION.value == tool_type):
                 input = self.createAngleDetectionInput(tool)
-            if (ToolType.DISTANCE_DETECTION.value == tool_type):
+            elif (ToolType.DISTANCE_DETECTION.value == tool_type):
                 input = self.createDistanceDetectionInput(tool)
-            if (ToolType.EDGE_DETECTION.value == tool_type):
+            elif (ToolType.EDGE_DETECTION.value == tool_type):
                 input = self.createEdgeDetectionInput(tool)
-            if (ToolType.PIXEL_COUNT.value == tool_type):
+            elif (ToolType.PIXEL_COUNT.value == tool_type):
                 input = self.createPixelCountInput(tool)
-            if (ToolType.FIXTURE.value == tool_type):
+            elif (ToolType.FIXTURE.value == tool_type):
                 input = self.createFixtureInput(tool)
+            elif (ToolType.TEXT_DETECTION.value == tool_type):
+                input = self.createTextDetectionInput(tool)
+            elif (ToolType.TEXT_RECOGINATION.value == tool_type):
+                input = self.createTextRecoginationInput(tool)
+            elif (ToolType.CROP.value == tool_type):
+                input = self.createCropInput(tool)
 
             self.tool_list.append(input)
 
@@ -57,42 +65,26 @@ class JobLoader(object):
                                      tool['apertureSize'], tool['k_size'],
                                      tool['max_thresholding'], tool['maxCorners'], tool['next_tool']);
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
         return input
 
     def createTemplateMatchingInput(self, tool) -> TemplateMatchingInput:
         input = TemplateMatchingInput(tool['type'], tool['method'], tool['main_img'], tool['temp_img'], tool['option'],
                                       tool['next_tool'])
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
         return input
 
     def createAngleDetectionInput(self, tool) -> AngleDetectionInput:
         input = AngleDetectionInput(tool['type'], tool['point_1'], tool['point_2'], tool['next_tool'])
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
         return input
 
     def createDistanceDetectionInput(self, tool) -> DistanceDetectionInput:
         input = DistanceDetectionInput(tool['type'], tool['method'], tool['point_1'], tool['point_2'])
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
 
         return input
 
@@ -101,11 +93,7 @@ class JobLoader(object):
                                    tool['upper_threshold'],
                                    tool['k_sizeX'], tool['k_sizeY'], tool['edge_thickness'], tool['next_tool'])
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
 
         return input
 
@@ -114,11 +102,7 @@ class JobLoader(object):
                           tool['bottom_right'],
                           tool['start_percentage'], tool['end_percentage'], tool['next_tool'])
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
 
         return input
 
@@ -126,11 +110,7 @@ class JobLoader(object):
         input = PixelCountInput(tool['main_img'], tool['type'], tool['method'], tool['option'], tool['threshold'],
                                 tool['max_value'], tool['block_size'], tool['constant'], tool['next_tool'])
 
-        if self.job is not None and self.job.display == 'ON':
-            input.display = True
-        else:
-            if tool['display'] == 'ON':
-                input.display = tool['display']
+        self.set_display(input, tool)
 
         return input
 
@@ -138,10 +118,27 @@ class JobLoader(object):
         input = FixtureInput(tool['type'], tool['top_left_pnt'], tool['bottom_right_pnt'], tool['top_left_pnt_gape'],
                              tool['bottom_right_pnt_gape'], tool['next_tool'])
 
+        self.set_display(input, tool)
+
+        return input
+
+    def createTextDetectionInput(self, tool):
+        input = TextDetectionInput(tool['type'], tool['threshold'], tool['width'], tool['height'], tool['next_tool'])
+
+        self.set_display(input, tool)
+
+        return input
+
+    def set_display(self, input, tool):
         if self.job is not None and self.job.display == 'ON':
             input.display = True
         else:
             if tool['display'] == 'ON':
                 input.display = tool['display']
+
+    def createTextRecoginationInput(self, tool):
+        input = TextRecoginationInput(tool['type'], tool['box_lists'], tool['padding'], tool['next_tool'])
+
+        self.set_display(input, tool)
 
         return input

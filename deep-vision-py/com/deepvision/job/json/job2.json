@@ -1,0 +1,39 @@
+{
+  "job_name": "test_2",
+  "job_description": "Edge and Distance",
+  "created_by": "Arpit",
+  "created_date_time": "",
+  "modified_by": "",
+  "modified_date_time": "",
+  "display": "ON",
+  "img_source": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\flat_chessboard.png",
+  "tools": [
+    {
+      "main_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\\\flat_chessboard.png",
+      "type": "CORNER_DETECTION",
+      "method": "SHI_TOMASI_AND_GOOD_FEATURES_TO_TRACK_CORNER_DETECTION",
+      "threshold": 100,
+      "blockSize": 2,
+      "apertureSize": 3,
+      "k_size": 0.04,
+      "max_thresholding": 150,
+      "maxCorners": 20,
+      "output": [
+        {
+          "corners": [],
+          "point_1": [],
+          "point_2": []
+        }
+      ],
+      "next_tool": [
+        {
+          "type": "DISTANCE_DETECTION",
+          "method": "PX",
+          "point_1": "outputList[0].point_1",
+          "point_2": "outputList[0].point_2",
+          "next_tool": []
+        }
+      ]
+    }
+  ]
+}

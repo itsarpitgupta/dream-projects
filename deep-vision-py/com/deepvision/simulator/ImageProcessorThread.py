@@ -19,6 +19,8 @@ from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
 from com.deepvision.tools.FixtureTool import FixtureTool
 from com.deepvision.tools.PixelCountTool import PixelCountTool
 from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
+from com.deepvision.tools.TextDetectionTool import TextDetectionTool
+from com.deepvision.tools.TextRecoginationTool import TextRecoginationTool
 
 
 class ImageProcessorThread(threading.Thread):
@@ -40,7 +42,7 @@ class ImageProcessorThread(threading.Thread):
         while True:
             # time.sleep(.5)
             img_path = self.image_process_queue.get()
-            main_img = cv2.imread(img_path, 0)
+            main_img = cv2.imread(img_path)
 
             # check if the load is high or not
             if self.image_process_queue.qsize() > 0:
@@ -82,6 +84,10 @@ def process_tool(tool) -> ToolResult:
         toolEngine.registerTool(PixelCountTool())
     elif (ToolType.FIXTURE.value == tool.type):
         toolEngine.registerTool(FixtureTool())
+    elif (ToolType.TEXT_DETECTION.value == tool.type):
+        toolEngine.registerTool(TextDetectionTool())
+    elif (ToolType.TEXT_RECOGINATION.value == tool.type):
+        toolEngine.registerTool(TextRecoginationTool())
 
     output = toolEngine.applyTool(tool)
     outputList.append(output)
@@ -94,7 +100,6 @@ def process_tool(tool) -> ToolResult:
     i = 0
     while next_tool != None and len(next_tool) != 0:
         next_tool_start = time.time()
-
 
         if (ToolType.CORNER_DETECTION.value == next_tool[i]['type']):
             toolEngine.registerTool(CornerDetectionTool())
@@ -139,6 +144,17 @@ def process_tool(tool) -> ToolResult:
             next_tool_input = job_loader.createFixtureInput(next_tool[i])
             next_tool_input.top_left_pnt = eval(next_tool[i]['top_left_pnt'])
             next_tool_input.bottom_right_pnt = eval(next_tool[i]['bottom_right_pnt'])
+
+        elif (ToolType.TEXT_DETECTION.value == next_tool[i]['type']):
+            toolEngine.registerTool(TextDetectionTool())
+            next_tool_input = job_loader.createTextDetectionInput(next_tool[i])
+            next_tool_input.main_img = eval(next_tool[i]['main_img'])
+
+        elif (ToolType.TEXT_RECOGINATION.value == next_tool[i]['type']):
+            toolEngine.registerTool(TextRecoginationTool())
+            next_tool_input = job_loader.createTextRecoginationInput(next_tool[i])
+            next_tool_input.box_lists = eval(next_tool[i]['box_lists'])
+            next_tool_input.main_img = eval(next_tool[i]['main_img'])
 
         output = toolEngine.applyTool(next_tool_input)
         outputList.append(output)
