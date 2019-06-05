@@ -14,3 +14,4 @@ class ToolType(enum.Enum):
     NO_TOOL = 'NO_TOOL'
     TEXT_DETECTION = 'TEXT_DETECTION'
     TEXT_RECOGINATION = 'TEXT_RECOGINATION'
+    OCR = 'OCR'

@@ -16,7 +16,7 @@ class TextRecoginationTool(ToolI):
 
     def process(self, input: TextRecoginationInput) -> TextRecoginationOutput:
         return self.recogination_text(main_img=input.main_img, box_lists=input.box_lists, paddings=input.padding,
-                                      width=640, height=320)
+                                      width=320, height=320)
 
     def recogination_text(self, main_img, box_lists, paddings, width, height) -> TextRecoginationOutput:
         output = TextRecoginationOutput()

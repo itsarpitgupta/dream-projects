@@ -17,6 +17,7 @@ from com.deepvision.tools.CropTool import CropTool
 from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
 from com.deepvision.tools.EdgeDetectionTool import EdgeDetectionTool
 from com.deepvision.tools.FixtureTool import FixtureTool
+from com.deepvision.tools.OCRTool import OCRTool
 from com.deepvision.tools.PixelCountTool import PixelCountTool
 from com.deepvision.tools.TemplateMatchingTool import TemplateMatchingTool
 from com.deepvision.tools.TextDetectionTool import TextDetectionTool
@@ -88,6 +89,8 @@ def process_tool(tool) -> ToolResult:
         toolEngine.registerTool(TextDetectionTool())
     elif (ToolType.TEXT_RECOGINATION.value == tool.type):
         toolEngine.registerTool(TextRecoginationTool())
+    elif (ToolType.OCR.value == tool.type):
+        toolEngine.registerTool(OCRTool())
 
     output = toolEngine.applyTool(tool)
     outputList.append(output)
@@ -154,6 +157,11 @@ def process_tool(tool) -> ToolResult:
             toolEngine.registerTool(TextRecoginationTool())
             next_tool_input = job_loader.createTextRecoginationInput(next_tool[i])
             next_tool_input.box_lists = eval(next_tool[i]['box_lists'])
+            next_tool_input.main_img = eval(next_tool[i]['main_img'])
+
+        elif (ToolType.OCR.value == next_tool[i]['type']):
+            toolEngine.registerTool(OCRTool())
+            next_tool_input = job_loader.createOCRInput(next_tool[i])
             next_tool_input.main_img = eval(next_tool[i]['main_img'])
 
         output = toolEngine.applyTool(next_tool_input)

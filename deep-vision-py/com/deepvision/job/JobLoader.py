@@ -8,6 +8,7 @@ from com.deepvision.input.CropInput import CropInput
 from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
 from com.deepvision.input.EdgeDetectionInput import EdgeDetectionInput
 from com.deepvision.input.FixtureInput import FixtureInput
+from com.deepvision.input.OCRInput import OCRInput
 from com.deepvision.input.PixelCountInput import PixelCountInput
 from com.deepvision.input.TemplateMatchingInput import TemplateMatchingInput
 from com.deepvision.input.TextDetectionInput import TextDetectionInput
@@ -22,7 +23,7 @@ class JobLoader(object):
     result_dict = {}
 
     def loadJob(self):
-        with open("..//job//json//job12.json", "r") as read_file:
+        with open("..//job//json//job13.json", "r") as read_file:
             self.jobJsonData = json.load(read_file)
 
         # print('Job Name : ' + self.jobJsonData['job_name'])
@@ -56,14 +57,21 @@ class JobLoader(object):
                 input = self.createTextRecoginationInput(tool)
             elif (ToolType.CROP.value == tool_type):
                 input = self.createCropInput(tool)
-
+            elif (ToolType.OCR.value == tool_type):
+                input = self.createOCRInput(tool)
             self.tool_list.append(input)
+
+    def createOCRInput(self, tool) -> OCRInput:
+        input = OCRInput(tool['main_img'], tool['type'], tool['min_counter_area'], tool['text'])
+
+        self.set_display(input, tool)
+        return input
 
     def createCornerDetectionInput(self, tool) -> CornerDetectionInput:
         input = CornerDetectionInput(tool['main_img'], tool['type'], tool['method'], tool['threshold'],
                                      tool['blockSize'],
                                      tool['apertureSize'], tool['k_size'],
-                                     tool['max_thresholding'], tool['maxCorners'], tool['next_tool']);
+                                     tool['max_thresholding'], tool['maxCorners'], tool['next_tool'])
 
         self.set_display(input, tool)
         return input
