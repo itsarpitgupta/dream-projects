@@ -32,7 +32,7 @@ class TemplateMatchingTool(ToolI):
             if isinstance(main_img, str):
                 full_gray = cv2.imread(main_img, cv2.IMREAD_GRAYSCALE)
             else:
-                full_gray = main_img
+                full_gray = cv2.cvtColor(main_img,cv2.COLOR_BGR2GRAY)
 
             # reading the template image
             template_gray = cv2.imread(temp_img, cv2.IMREAD_GRAYSCALE)

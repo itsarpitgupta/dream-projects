@@ -24,6 +24,6 @@ class ImageLoaderThread(threading.Thread):
 
             # self.imageProcessQueue.put(Constant.IMAGE_PATH+"\\"+'Image001{}{}'.format(i+14, ".BMP"))
             # self.imageProcessQueue.put("D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\ocr\\" + 'example_0{}{}'.format(i+1, ".jpg"))
-            self.imageProcessQueue.put("D:\\Vision_Application\\OCR\\OCR 8\\" + 'Image000{}{}'.format(11, ".BMP"))
+            self.imageProcessQueue.put("D:\Vision_Application\\27th april Bad\\" + 'Image0000{}{}'.format(i+1, ".BMP"))
             # print('loading images... {}'.format(Constant.IMAGE_PATH+"\\"+'Image001{}{}'.format(i+14, ".BMP")))
             time.sleep(.1)
