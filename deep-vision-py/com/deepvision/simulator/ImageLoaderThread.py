@@ -16,14 +16,14 @@ class ImageLoaderThread(threading.Thread):
         self.loadImages()
 
     def loadImages(self):
-        for i in range(1):
+        for i in range(7):
             # img = ImageData()
             # img.image_name = 'Image001{}.{}'.format(i, ".BMP")
             # img.image_path = Constant.IMAGE_PATH
             # img.image = cv2.imread(img.image_path + "\\" + img.image_name, 0)
 
             # self.imageProcessQueue.put(Constant.IMAGE_PATH+"\\"+'Image001{}{}'.format(i+14, ".BMP"))
-            # self.imageProcessQueue.put("D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\ocr\\" + 'example_0{}{}'.format(i+1, ".jpg"))
-            self.imageProcessQueue.put("D:\Vision_Application\\27th april Bad\\" + 'Image0000{}{}'.format(i+1, ".BMP"))
+            # self.imageProcessQueue.put("D:\Vision_Application\OCR\OCR 9\\" + 'example_0{}{}'.format(i+1, ".jpg"))
+            self.imageProcessQueue.put("D:\Vision_Application\OCR\OCR 9\\" + 'Image00{}{}'.format(i+477, ".BMP"))
             # print('loading images... {}'.format(Constant.IMAGE_PATH+"\\"+'Image001{}{}'.format(i+14, ".BMP")))
             time.sleep(.1)

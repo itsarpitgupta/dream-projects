@@ -4,9 +4,10 @@ import numpy as np
 from com.deepvision.constants import ToolType, Constant
 from com.deepvision.exception.DataValidationException import DataValidationException
 from com.deepvision.input.OCRInput import OCRInput
-from com.deepvision.output import OCROutput
+from com.deepvision.output.OCROutput import OCROutput
 from com.deepvision.toolengine.ToolI import ToolI
 from com.deepvision.util.displayutil import displayImageOutput
+import operator
 
 # module level variables ##########################################################################
 # MIN_CONTOUR_AREA = 30
@@ -98,37 +99,37 @@ class OCRTool(ToolI):
                                                          cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
 
             for npaContour in npaContours:  # for each contour
-                contourWithData = self.ContourWithData()  # instantiate a contour with data object
-                contourWithData.npaContour = npaContour  # assign contour to contour with data
-                contourWithData.boundingRect = cv2.boundingRect(contourWithData.npaContour)  # get the bounding rect
-                contourWithData.calculateRectTopLeftPointAndWidthAndHeight()  # get bounding rect info
-                contourWithData.fltArea = cv2.contourArea(contourWithData.npaContour)  # calculate the contour area
+                ocr_tool = OCRTool()  # instantiate a contour with data object
+                ocr_tool.npaContour = npaContour  # assign contour to contour with data
+                ocr_tool.boundingRect = cv2.boundingRect(ocr_tool.npaContour)  # get the bounding rect
+                ocr_tool.calculateRectTopLeftPointAndWidthAndHeight()  # get bounding rect info
+                ocr_tool.fltArea = cv2.contourArea(ocr_tool.npaContour)  # calculate the contour area
                 allContoursWithData.append(
-                    contourWithData)  # add contour with data object to list of all contours with data
+                    ocr_tool)  # add contour with data object to list of all contours with data
             # end for
 
-            for contourWithData in allContoursWithData:  # for all contours
-                if contourWithData.checkIfContourIsValid(min_counter_area=max_counter_area):  # check if valid
-                    validContoursWithData.append(contourWithData)  # if so, append to valid contour list
+            for ocr_tool in allContoursWithData:  # for all contours
+                if ocr_tool.checkIfContourIsValid(min_counter_area=max_counter_area):  # check if valid
+                    validContoursWithData.append(ocr_tool)  # if so, append to valid contour list
                 # end if
             # end for
 
-            validContoursWithData.sort(key=self.operator.attrgetter("intRectX"))  # sort contours from left to right
+            validContoursWithData.sort(key=operator.attrgetter("intRectX"))  # sort contours from left to right
 
             strFinalString = ""  # declare final string, this will have the final number sequence by the end of the program
 
-            for contourWithData in validContoursWithData:  # for each contour
+            for ocr_tool in validContoursWithData:  # for each contour
                 # draw a green rect around the current char
                 cv2.rectangle(imgTestingNumbers,  # draw rectangle on original testing image
-                              (contourWithData.intRectX, contourWithData.intRectY),  # upper left corner
-                              (contourWithData.intRectX + contourWithData.intRectWidth,
-                               contourWithData.intRectY + contourWithData.intRectHeight),  # lower right corner
+                              (ocr_tool.intRectX, ocr_tool.intRectY),  # upper left corner
+                              (ocr_tool.intRectX + ocr_tool.intRectWidth,
+                               ocr_tool.intRectY + ocr_tool.intRectHeight),  # lower right corner
                               (0, 255, 0),  # green
                               1)  # thickness
 
-                imgROI = imgThresh[contourWithData.intRectY: contourWithData.intRectY + contourWithData.intRectHeight,
+                imgROI = imgThresh[ocr_tool.intRectY: ocr_tool.intRectY + ocr_tool.intRectHeight,
                          # crop char out of threshold image
-                         contourWithData.intRectX: contourWithData.intRectX + contourWithData.intRectWidth]
+                         ocr_tool.intRectX: ocr_tool.intRectX + ocr_tool.intRectWidth]
 
                 imgROIResized = cv2.resize(imgROI, (RESIZED_IMAGE_WIDTH,RESIZED_IMAGE_HEIGHT))  # resize image, this will be more consistent for recognition and storage
 
@@ -139,19 +140,19 @@ class OCRTool(ToolI):
                 retval, npaResults, neigh_resp, dists = kNearest.findNearest(npaROIResized, k=1)  # call KNN function find_nearest
 
                 # print('{} - {}'.format(dists[0][0],str(chr(int(npaResults[0][0])))))
-                if dists[0][0] != 0.0:
-                    strCurrentChar = '?'
-                else:
-                    strCurrentChar = str(chr(int(npaResults[0][0])))  # get character from results
+                # if dists[0][0] != 0.0:
+                #     strCurrentChar = '?'
+                # else:
+                strCurrentChar = str(chr(int(npaResults[0][0])))  # get character from results
 
                 strFinalString = strFinalString + strCurrentChar  # append current char to full string
             # end for
-
-            cv2.putText(imgTestingNumbers, strCurrentChar, (contourWithData.intRectX, contourWithData.intRectY),
-                        cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 255, 255), 1)
+            #     print(strFinalString)
+                cv2.putText(imgTestingNumbers, strCurrentChar, (ocr_tool.intRectX, ocr_tool.intRectY),
+                                                    cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 255, 255), 1)
 
             if self.display:
-                displayImageOutput(main_img=imgTestingNumbers, main_img_title="Matching Result", result_img=imgTestingNumbers,
+                displayImageOutput(main_img=main_img, main_img_title="Matching Result", result_img=imgTestingNumbers,
                                    result_img_title="Character Detection", title="OCR")
 
 

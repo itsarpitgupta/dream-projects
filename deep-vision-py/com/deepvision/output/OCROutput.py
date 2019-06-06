@@ -1,6 +1,6 @@
 from com.deepvision.output.BaseOutput import BaseOutput
 
 
-class CropOutput(BaseOutput):
+class OCROutput(BaseOutput):
     status = 'PASS'
     text_result = ''

@@ -20,10 +20,10 @@ class ImageResultThread(threading.Thread):
             results = self.result_queue.get()
 
             for tool_result in results:
-                print('{} - {} - {:.4f}\n'.format(tool_result.type, tool_result.result, tool_result.time))
+                print('{} - {} - {:.4f}'.format(tool_result.type, tool_result.result, tool_result.time))
 
                 for next_tool_result in tool_result.next_tool:
-                    print('{} - {} - {:.4f}\n'.format(next_tool_result.type, next_tool_result.result,
+                    print('{} - {} - {:.4f}'.format(next_tool_result.type, next_tool_result.result,
                                                     next_tool_result.time))
 
                 print('__________________________________________________\n')
