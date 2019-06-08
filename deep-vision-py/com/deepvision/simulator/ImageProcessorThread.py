@@ -43,21 +43,27 @@ class ImageProcessorThread(threading.Thread):
         while True:
             # time.sleep(.5)
             img_path = self.image_process_queue.get()
+            print(img_path)
             main_img = cv2.imread(img_path)
 
             # check if the load is high or not
             if self.image_process_queue.qsize() > 0:
                 print('Load is high.')
 
+            start = time.time()
+            results = []
             for tool in self.tools:
                 tool.main_img = main_img
+                result = process_tool(tool)
+                results.append(result)
 
-            start = time.time()
-            with ThreadPoolExecutor(max_workers=5) as executor:
-                results = executor.map(process_tool, self.tools)
-
-            # put all the results from all the processor thread in result queue
             self.image_result_queue.put(list(results))
+
+                # with ThreadPoolExecutor() as executor:
+                #     results = executor.map(process_tool, self.tools)
+                    # put all the results from all the processor thread in result queue
+                    # self.image_result_queue.put(list(results))
+
 
             end = time.time()
             print('__________________________________________________\n')

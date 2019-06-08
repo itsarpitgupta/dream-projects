@@ -1,0 +1,97 @@
+{
+  "job_name": "OCR",
+  "job_description": "Text detection and recogination",
+  "created_by": "Arpit",
+  "created_date_time": "",
+  "modified_by": "",
+  "modified_date_time": "",
+  "img_source": "",
+  "display": "OFF",
+  "tools": [
+    {
+      "main_img": " ",
+      "type": "CROP",
+      "method": "CROP_BY_POINT",
+      "display": "OFF",
+      "start_percentage": 0,
+      "end_percentage": 0,
+      "top_left": [
+        80,
+        130
+      ],
+      "bottom_right": [
+        558,
+        200
+      ],
+      "output": [
+        {
+          "crop_image": []
+        }
+      ],
+      "next_tool": [
+        {
+          "main_img": "outputList[0].crop_image",
+          "type": "EDGE_DETECTION",
+          "method": "CANNY_EDGE_DETECTION",
+          "display": "OFF",
+          "lower_threshold": 100,
+          "upper_threshold": 200,
+          "k_sizeX": 2,
+          "k_sizeY": 3,
+          "edge_thickness": 1,
+          "output": [
+            {
+              "point_1": [],
+              "point_2": [],
+              "point_mid": []
+            }
+          ],
+          "next_tool": []
+        }
+      ]
+    },{
+      "main_img": "tool.main_img",
+      "type": "CROP",
+      "method": "CROP_BY_POINT",
+      "display": "OFF",
+      "start_percentage": 0,
+      "end_percentage": 0,
+      "top_left": [
+        80,
+        250
+      ],
+      "bottom_right": [
+        558,
+        350
+      ],
+      "output": [
+        {
+          "crop_image": []
+        }
+      ],
+      "next_tool": [
+        {
+          "main_img": "outputList[0].crop_image",
+          "type": "EDGE_DETECTION",
+          "method": "CANNY_EDGE_DETECTION",
+          "display": "OFF",
+          "lower_threshold": 100,
+          "upper_threshold": 200,
+          "k_sizeX": 2,
+          "k_sizeY": 3,
+          "edge_thickness": 1,
+          "output": [
+            {
+              "point_1": [],
+              "point_2": [],
+              "point_mid": []
+            }
+          ],
+           "next_tool": []
+        }
+      ]
+    }
+  ]
+}
+
+
