@@ -50,22 +50,23 @@ class ImageProcessorThread(threading.Thread):
             if self.image_process_queue.qsize() > 0:
                 print('Load is high.')
 
-            start = time.time()
-            results = []
+            # results = []
             for tool in self.tools:
                 tool.main_img = main_img
-                result = process_tool(tool)
-                results.append(result)
+            #     result = process_tool(tool)
+            #     results.append(result)
 
+            # self.image_result_queue.put(list(results))
+
+            start = time.time()
+            with ThreadPoolExecutor(max_workers=5) as executor:
+                results = executor.map(process_tool, self.tools)
+            end = time.time()
+
+            # put all the results from all the processor thread in result queue
             self.image_result_queue.put(list(results))
 
-                # with ThreadPoolExecutor() as executor:
-                #     results = executor.map(process_tool, self.tools)
-                    # put all the results from all the processor thread in result queue
-                    # self.image_result_queue.put(list(results))
 
-
-            end = time.time()
             print('__________________________________________________\n')
             print('Total time taken - {:.4f}\n'.format(end - start))
 
