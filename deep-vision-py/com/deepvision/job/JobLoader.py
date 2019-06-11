@@ -3,6 +3,7 @@ import json as json
 from com.deepvision.constants import Constant
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.input.AngleDetectionInput import AngleDetectionInput
+from com.deepvision.input.BarCodeAndQRCodeInput import BarCodeAndQRCodeInput
 from com.deepvision.input.CornerDetectionInput import CornerDetectionInput
 from com.deepvision.input.CropInput import CropInput
 from com.deepvision.input.DistanceDetectionInput import DistanceDetectionInput
@@ -59,10 +60,19 @@ class JobLoader(object):
                 input = self.createCropInput(tool)
             elif (ToolType.OCR.value == tool_type):
                 input = self.createOCRInput(tool)
+            elif (ToolType.BAR_CODE_AND_QR_CODE.value == tool_type):
+                input = self.createBarCodeAndQRCodeInput(tool)
+
             self.tool_list.append(input)
 
+    def createBarCodeAndQRCodeInput(self, tool) -> OCRInput:
+        input = BarCodeAndQRCodeInput(tool['type'], tool['main_img'], tool['next_tool'])
+
+        self.set_display(input, tool)
+        return input
+
     def createOCRInput(self, tool) -> OCRInput:
-        input = OCRInput(tool['main_img'], tool['type'], tool['min_counter_area'], tool['text'])
+        input = OCRInput(tool['main_img'], tool['type'], tool['min_counter_area'], tool['text'], tool['next_tool'])
 
         self.set_display(input, tool)
         return input

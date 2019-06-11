@@ -1,17 +1,14 @@
-import concurrent
 import threading
 import time
-from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
-
 import cv2 as cv2
-
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.job.JobLoader import JobLoader
 from com.deepvision.models.ToolResult import ToolResult
 from com.deepvision.toolengine.ToolEngine import ToolEngine
 from com.deepvision.tools import FixtureTool
 from com.deepvision.tools.AngleDetectionTool import AngleDetectionTool
+from com.deepvision.tools.BarCodeAndQRCodeReaderTool import BarCodeAndQRCodeReaderTool
 from com.deepvision.tools.CornerDetectionTool import CornerDetectionTool
 from com.deepvision.tools.CropTool import CropTool
 from com.deepvision.tools.DistanceDetectionTool import DistanceDetectionTool
@@ -98,6 +95,8 @@ def process_tool(tool) -> ToolResult:
         toolEngine.registerTool(TextRecoginationTool())
     elif (ToolType.OCR.value == tool.type):
         toolEngine.registerTool(OCRTool())
+    elif (ToolType.BAR_CODE_AND_QR_CODE.value == tool.type):
+        toolEngine.registerTool(BarCodeAndQRCodeReaderTool())
 
     output = toolEngine.applyTool(tool)
     outputList.append(output)
@@ -168,6 +167,11 @@ def process_tool(tool) -> ToolResult:
 
         elif (ToolType.OCR.value == next_tool[i]['type']):
             toolEngine.registerTool(OCRTool())
+            next_tool_input = job_loader.createOCRInput(next_tool[i])
+            next_tool_input.main_img = eval(next_tool[i]['main_img'])
+
+        elif (ToolType.BAR_CODE_AND_QR_CODE.value == next_tool[i]['type']):
+            toolEngine.registerTool(BarCodeAndQRCodeReaderTool())
             next_tool_input = job_loader.createOCRInput(next_tool[i])
             next_tool_input.main_img = eval(next_tool[i]['main_img'])
 
