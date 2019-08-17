@@ -25,6 +25,42 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_11">
     <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="MplWidget" name="MplWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
      <widget class="QSplitter" name="splitter">
       <property name="minimumSize">
        <size>
@@ -41,61 +77,6 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QMdiArea" name="mdiArea">
-       <property name="focusPolicy">
-        <enum>Qt::ClickFocus</enum>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::DefaultContextMenu</enum>
-       </property>
-       <property name="acceptDrops">
-        <bool>true</bool>
-       </property>
-       <property name="statusTip">
-        <string/>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="lineWidth">
-        <number>3</number>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
-       </property>
-       <property name="sizeAdjustPolicy">
-        <enum>QAbstractScrollArea::AdjustToContents</enum>
-       </property>
-       <property name="activationOrder">
-        <enum>QMdiArea::StackingOrder</enum>
-       </property>
-       <property name="viewMode">
-        <enum>QMdiArea::SubWindowView</enum>
-       </property>
-       <property name="documentMode">
-        <bool>true</bool>
-       </property>
-       <property name="tabsClosable">
-        <bool>true</bool>
-       </property>
-       <property name="tabsMovable">
-        <bool>true</bool>
-       </property>
-       <property name="tabShape">
-        <enum>QTabWidget::Rounded</enum>
-       </property>
-       <widget class="QWidget" name="subwindow">
-        <property name="windowTitle">
-         <string>Subwindow</string>
-        </property>
-       </widget>
-      </widget>
       <widget class="QFrame" name="frame">
        <property name="minimumSize">
         <size>
@@ -113,7 +94,7 @@
         <item row="0" column="0">
          <widget class="QStackedWidget" name="stackedWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="getconnected">
            <layout class="QGridLayout" name="gridLayout_6">
@@ -538,6 +519,133 @@
             </item>
            </layout>
           </widget>
+          <widget class="QWidget" name="page">
+           <layout class="QGridLayout" name="gridLayout_14">
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="title">
+               <string>GroupBox</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_12">
+               <item row="0" column="0">
+                <widget class="QTreeWidget" name="treeWidget">
+                 <property name="dragEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="dragDropMode">
+                  <enum>QAbstractItemView::DragOnly</enum>
+                 </property>
+                 <property name="animated">
+                  <bool>true</bool>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Tools</string>
+                  </property>
+                 </column>
+                 <item>
+                  <property name="text">
+                   <string>Locate</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Patterns</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Edge</string>
+                   </property>
+                  </item>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>OCR</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Dot Matrix</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Barcode scanner</string>
+                   </property>
+                  </item>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QGroupBox" name="groupBox_7">
+              <property name="title">
+               <string>Directions</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_13">
+               <item row="0" column="0" colspan="2">
+                <widget class="QPlainTextEdit" name="plainTextEdit">
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
+                 </property>
+                 <property name="plainText">
+                  <string>afakdsfjaksdlfj kldasjf kljads kldajf kaldsfj kladsjf klasdfj kasdjf klsadjf klasjdf klasdjfkl asdjf klasdjf asdfjaksdfj kladsfj klasdfj kasdfj kasjdfk adfjkl adsfj kasdjf kasdfj kasdf.</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_20">
+                   <property name="text">
+                    <string>OK</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_19">
+                   <property name="text">
+                    <string>Cancel</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="1" column="1">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>89</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>178</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -568,7 +676,11 @@
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
   <widget class="QDockWidget" name="dockWidget">
    <property name="maximumSize">
     <size>
@@ -589,6 +701,15 @@
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
       <widget class="QScrollArea" name="scrollArea">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOn</enum>
        </property>
@@ -600,8 +721,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>261</width>
-          <height>400</height>
+          <width>116</width>
+          <height>304</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -621,6 +742,21 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPushButton" name="pushButton">
               <property name="text">
@@ -654,6 +790,21 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPushButton" name="pushButton_3">
               <property name="text">
@@ -687,6 +838,21 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPushButton" name="pushButton_5">
               <property name="text">
@@ -720,6 +886,21 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QPushButton" name="pushButton_7">
               <property name="text">
@@ -771,17 +952,7 @@
         <attribute name="title">
          <string>Help</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QListWidget" name="listWidget">
-           <item>
-            <property name="text">
-             <string>New Item</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QGridLayout" name="gridLayout_4"/>
        </widget>
        <widget class="QWidget" name="tab_4">
         <attribute name="title">
@@ -790,10 +961,25 @@
        </widget>
       </widget>
      </item>
+     <item row="1" column="0">
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MplWidget</class>
+   <extends>QWidget</extends>
+   <header>mplwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
