@@ -3,12 +3,15 @@
 # Form implementation generated from reading ui file 'ui_mainwindow.ui',
 # licensing of 'ui_mainwindow.ui' applies.
 #
-# Created: Fri Aug 16 21:09:27 2019
+# Created: Sun Aug 18 09:16:02 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide2 import QtCore, QtGui, QtWidgets
+
+from gui.MplWidget import MplWidget
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -16,37 +19,20 @@ class Ui_MainWindow(object):
         MainWindow.setWindowModality(QtCore.Qt.WindowModal)
         MainWindow.resize(958, 607)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("background:rgb(180, 178, 174)")
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_11 = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout_11.setObjectName("gridLayout_11")
+        self.MplWidget = MplWidget(self.centralwidget)
+        self.MplWidget.setObjectName("MplWidget")
+        self.gridLayout_11.addWidget(self.MplWidget, 0, 0, 1, 1)
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setMinimumSize(QtCore.QSize(50, 10))
         self.splitter.setFrameShadow(QtWidgets.QFrame.Raised)
         self.splitter.setLineWidth(20)
         self.splitter.setOrientation(QtCore.Qt.Vertical)
         self.splitter.setObjectName("splitter")
-        self.mdiArea = QtWidgets.QMdiArea(self.splitter)
-        self.mdiArea.setFocusPolicy(QtCore.Qt.ClickFocus)
-        self.mdiArea.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.mdiArea.setAcceptDrops(True)
-        self.mdiArea.setStatusTip("")
-        self.mdiArea.setFrameShape(QtWidgets.QFrame.Box)
-        self.mdiArea.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.mdiArea.setLineWidth(3)
-        self.mdiArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.mdiArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.mdiArea.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.mdiArea.setActivationOrder(QtWidgets.QMdiArea.StackingOrder)
-        self.mdiArea.setViewMode(QtWidgets.QMdiArea.SubWindowView)
-        self.mdiArea.setDocumentMode(True)
-        self.mdiArea.setTabsClosable(True)
-        self.mdiArea.setTabsMovable(True)
-        self.mdiArea.setTabShape(QtWidgets.QTabWidget.Rounded)
-        self.mdiArea.setObjectName("mdiArea")
-        self.subwindow = QtWidgets.QWidget()
-        self.subwindow.setObjectName("subwindow")
         self.frame = QtWidgets.QFrame(self.splitter)
         self.frame.setMinimumSize(QtCore.QSize(0, 276))
         self.frame.setFrameShape(QtWidgets.QFrame.WinPanel)
@@ -298,7 +284,7 @@ class Ui_MainWindow(object):
         self.gridLayout_14.addItem(spacerItem6, 0, 2, 1, 1)
         self.stackedWidget.addWidget(self.page)
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
-        self.gridLayout_11.addWidget(self.splitter, 0, 0, 1, 1)
+        self.gridLayout_11.addWidget(self.splitter, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 958, 21))
@@ -328,7 +314,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -45, 116, 304))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 111, 304))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
@@ -438,13 +424,12 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuEdit.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "MainWindow", None, -1))
-        self.subwindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "Subwindow", None, -1))
         self.groupBox.setTitle(QtWidgets.QApplication.translate("MainWindow", "Select a Camera", None, -1))
         self.pushButton_11.setText(QtWidgets.QApplication.translate("MainWindow", "Refresh", None, -1))
         self.pushButton_12.setText(QtWidgets.QApplication.translate("MainWindow", "Add", None, -1))
@@ -453,7 +438,8 @@ class Ui_MainWindow(object):
         self.pushButton_10.setText(QtWidgets.QApplication.translate("MainWindow", "Disconnect", None, -1))
         __sortingEnabled = self.listWidget_2.isSortingEnabled()
         self.listWidget_2.setSortingEnabled(False)
-        self.listWidget_2.item(0).setText(QtWidgets.QApplication.translate("MainWindow", "arpit-java pc emulator", None, -1))
+        self.listWidget_2.item(0).setText(
+            QtWidgets.QApplication.translate("MainWindow", "arpit-java pc emulator", None, -1))
         self.listWidget_2.setSortingEnabled(__sortingEnabled)
         self.groupBox_2.setTitle(QtWidgets.QApplication.translate("MainWindow", "Create Job", None, -1))
         self.pushButton_14.setText(QtWidgets.QApplication.translate("MainWindow", "New Job", None, -1))
@@ -482,13 +468,20 @@ class Ui_MainWindow(object):
         self.groupBox_6.setTitle(QtWidgets.QApplication.translate("MainWindow", "GroupBox", None, -1))
         self.treeWidget.headerItem().setText(0, QtWidgets.QApplication.translate("MainWindow", "Tools", None, -1))
         self.treeWidget.topLevelItem(0).setText(0, QtWidgets.QApplication.translate("MainWindow", "Locate", None, -1))
-        self.treeWidget.topLevelItem(0).child(0).setText(0, QtWidgets.QApplication.translate("MainWindow", "Patterns", None, -1))
-        self.treeWidget.topLevelItem(0).child(1).setText(0, QtWidgets.QApplication.translate("MainWindow", "Edge", None, -1))
+        self.treeWidget.topLevelItem(0).child(0).setText(0, QtWidgets.QApplication.translate("MainWindow", "Patterns",
+                                                                                             None, -1))
+        self.treeWidget.topLevelItem(0).child(1).setText(0, QtWidgets.QApplication.translate("MainWindow", "Edge", None,
+                                                                                             -1))
         self.treeWidget.topLevelItem(1).setText(0, QtWidgets.QApplication.translate("MainWindow", "OCR", None, -1))
-        self.treeWidget.topLevelItem(1).child(0).setText(0, QtWidgets.QApplication.translate("MainWindow", "Dot Matrix", None, -1))
-        self.treeWidget.topLevelItem(1).child(1).setText(0, QtWidgets.QApplication.translate("MainWindow", "Barcode scanner", None, -1))
+        self.treeWidget.topLevelItem(1).child(0).setText(0, QtWidgets.QApplication.translate("MainWindow", "Dot Matrix",
+                                                                                             None, -1))
+        self.treeWidget.topLevelItem(1).child(1).setText(0, QtWidgets.QApplication.translate("MainWindow",
+                                                                                             "Barcode scanner", None,
+                                                                                             -1))
         self.groupBox_7.setTitle(QtWidgets.QApplication.translate("MainWindow", "Directions", None, -1))
-        self.plainTextEdit.setPlainText(QtWidgets.QApplication.translate("MainWindow", "afakdsfjaksdlfj kldasjf kljads kldajf kaldsfj kladsjf klasdfj kasdjf klsadjf klasjdf klasdjfkl asdjf klasdjf asdfjaksdfj kladsfj klasdfj kasdfj kasjdfk adfjkl adsfj kasdjf kasdfj kasdf.", None, -1))
+        self.plainTextEdit.setPlainText(QtWidgets.QApplication.translate("MainWindow",
+                                                                         "afakdsfjaksdlfj kldasjf kljads kldajf kaldsfj kladsjf klasdfj kasdjf klsadjf klasjdf klasdjfkl asdjf klasdjf asdfjaksdfj kladsfj klasdfj kasdfj kasjdfk adfjkl adsfj kasdjf kasdfj kasdf.",
+                                                                         None, -1))
         self.pushButton_20.setText(QtWidgets.QApplication.translate("MainWindow", "OK", None, -1))
         self.pushButton_19.setText(QtWidgets.QApplication.translate("MainWindow", "Cancel", None, -1))
         self.menuFile.setTitle(QtWidgets.QApplication.translate("MainWindow", "File", None, -1))
@@ -507,6 +500,7 @@ class Ui_MainWindow(object):
         self.pushButton_7.setText(QtWidgets.QApplication.translate("MainWindow", "PushButton", None, -1))
         self.pushButton_8.setText(QtWidgets.QApplication.translate("MainWindow", "PushButton", None, -1))
         self.dockWidget_2.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "Palettle", None, -1))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), QtWidgets.QApplication.translate("MainWindow", "Help", None, -1))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), QtWidgets.QApplication.translate("MainWindow", "Results", None, -1))
-
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3),
+                                    QtWidgets.QApplication.translate("MainWindow", "Help", None, -1))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4),
+                                    QtWidgets.QApplication.translate("MainWindow", "Results", None, -1))
