@@ -8,16 +8,17 @@ import numpy as np
 import random
 
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.pushButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
-        self.ui.pushButton_2.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
-        self.ui.pushButton_3.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
-        self.ui.pushButton_17.clicked.connect(lambda: self.load_image())
-        self.ui.pushButton_16.clicked.connect(lambda: self.update_graph())
+        self.ui.pushButton.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(0))
+        self.ui.pushButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
+        self.ui.pushButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(2))
+        self.ui.pushButton_29.clicked.connect(lambda: self.load_image())
+        self.ui.pushButton_28.clicked.connect(lambda: self.update_graph())
         self.ui.statusbar.addPermanentWidget(self.ui.progressBar)
 
     def update_graph(self):
@@ -41,7 +42,6 @@ class MainWindow(QMainWindow):
         dialog = SetupImageDialog()
         dialog.setWindowModality(Qt.ApplicationModal)
         dialog.exec_()
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

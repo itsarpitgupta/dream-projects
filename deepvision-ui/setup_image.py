@@ -1,7 +1,9 @@
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QDialog
+from PySide2.QtWidgets import QDialog, QFileDialog
 
 from gui.ui_loadimage import Ui_Dialog
+from setup_image_file_browser import FileBrowser
+
 
 class SetupImageDialog(QDialog):
 
@@ -9,3 +11,12 @@ class SetupImageDialog(QDialog):
         super(SetupImageDialog, self).__init__()
         self.dialog = Ui_Dialog()
         self.dialog.setupUi(self)
+        self.dialog.toolButton.clicked.connect(lambda: self.open_folder_browser())
+
+    def open_folder_browser(self):
+        widget = FileBrowser()
+        widget.setWindowModality(Qt.ApplicationModal)
+        file = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        self.dialog.comboBox.addItem(file)
+
+
