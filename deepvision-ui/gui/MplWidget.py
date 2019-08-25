@@ -12,6 +12,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 class MplWidget(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
+        self.setMaximumHeight(350)
+
 
         self.canvas = FigureCanvas(Figure())
         vertical_layout = QVBoxLayout()

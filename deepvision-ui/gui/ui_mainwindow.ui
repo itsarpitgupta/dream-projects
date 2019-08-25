@@ -24,9 +24,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_11">
-    <item row="0" column="0">
-     <widget class="MplWidget" name="MplWidget" native="true"/>
-    </item>
     <item row="1" column="0">
      <widget class="QSplitter" name="splitter">
       <property name="minimumSize">
@@ -662,6 +659,9 @@
       </widget>
      </widget>
     </item>
+    <item row="0" column="0">
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -950,6 +950,13 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_3">
+     <item row="1" column="0">
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0">
       <widget class="QTabWidget" name="tabWidget_2">
        <property name="currentIndex">
@@ -971,25 +978,10 @@
        </widget>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QProgressBar" name="progressBar">
-       <property name="value">
-        <number>24</number>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MplWidget</class>
-   <extends>QWidget</extends>
-   <header>mplwidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'ui_mainwindow.ui',
 # licensing of 'ui_mainwindow.ui' applies.
 #
-# Created: Sun Aug 18 17:28:43 2019
+# Created: Sat Aug 24 20:23:06 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -21,9 +21,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_11 = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout_11.setObjectName("gridLayout_11")
-        self.MplWidget = MplWidget(self.centralwidget)
-        self.MplWidget.setObjectName("MplWidget")
-        self.gridLayout_11.addWidget(self.MplWidget, 0, 0, 1, 1)
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setMinimumSize(QtCore.QSize(50, 10))
         self.splitter.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -31,8 +28,8 @@ class Ui_MainWindow(object):
         self.splitter.setOrientation(QtCore.Qt.Vertical)
         self.splitter.setObjectName("splitter")
         self.frame = QtWidgets.QFrame(self.splitter)
-        # self.frame.setMinimumSize(QtCore.QSize(0, 276))
-        # self.frame.setMaximumSize(QtCore.QSize(16777215, 296))
+        self.frame.setMinimumSize(QtCore.QSize(0, 276))
+        self.frame.setMaximumSize(QtCore.QSize(16777215, 296))
         self.frame.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -296,6 +293,9 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_3)
         self.gridLayout_2.addWidget(self.scrollArea_2, 0, 0, 1, 1)
         self.gridLayout_11.addWidget(self.splitter, 1, 0, 1, 1)
+        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView.setObjectName("graphicsView")
+        self.gridLayout_11.addWidget(self.graphicsView, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 958, 21))
@@ -413,6 +413,10 @@ class Ui_MainWindow(object):
         self.dockWidgetContents_2.setObjectName("dockWidgetContents_2")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.dockWidgetContents_2)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.progressBar = QtWidgets.QProgressBar(self.dockWidgetContents_2)
+        self.progressBar.setProperty("value", 24)
+        self.progressBar.setObjectName("progressBar")
+        self.gridLayout_3.addWidget(self.progressBar, 1, 0, 1, 1)
         self.tabWidget_2 = QtWidgets.QTabWidget(self.dockWidgetContents_2)
         self.tabWidget_2.setUsesScrollButtons(True)
         self.tabWidget_2.setObjectName("tabWidget_2")
@@ -425,17 +429,13 @@ class Ui_MainWindow(object):
         self.tab_4.setObjectName("tab_4")
         self.tabWidget_2.addTab(self.tab_4, "")
         self.gridLayout_3.addWidget(self.tabWidget_2, 0, 0, 1, 1)
-        self.progressBar = QtWidgets.QProgressBar(self.dockWidgetContents_2)
-        self.progressBar.setProperty("value", 24)
-        self.progressBar.setObjectName("progressBar")
-        self.gridLayout_3.addWidget(self.progressBar, 1, 0, 1, 1)
         self.dockWidget_2.setWidget(self.dockWidgetContents_2)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockWidget_2)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget_2.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -506,4 +506,3 @@ class Ui_MainWindow(object):
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), QtWidgets.QApplication.translate("MainWindow", "Help", None, -1))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), QtWidgets.QApplication.translate("MainWindow", "Results", None, -1))
 
-from gui.MplWidget import MplWidget
