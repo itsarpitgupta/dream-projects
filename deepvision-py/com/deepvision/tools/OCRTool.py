@@ -52,14 +52,14 @@ class OCRTool(ToolI):
             validContoursWithData = []  # we will fill these shortly
 
             try:
-                npaClassifications = np.loadtxt("..//..//..//training-models//classifications.txt", np.float32)  # read in training classifications
+                npaClassifications = np.loadtxt("D://training-models//classifications.txt", np.float32)  # read in training classifications
             except:
                 print("error, unable to open classifications.txt, exiting program\n")
                 return
             # end try
 
             try:
-                npaFlattenedImages = np.loadtxt("..//..//..//training-models//flattened_images.txt", np.float32)  # read in training images
+                npaFlattenedImages = np.loadtxt("D://training-models//flattened_images.txt", np.float32)  # read in training images
             except:
                 print("error, unable to open flattened_images.txt, exiting program\n")
                 return

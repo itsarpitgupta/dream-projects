@@ -23,7 +23,7 @@ class ImageLoaderThread(threading.Thread):
             # img.image = cv2.imread(img.image_path + "\\" + img.image_name, 0)
 
             # self.imageProcessQueue.put(Constant.IMAGE_PATH+"\\"+'Image001{}{}'.format(i+14, ".BMP"))
-            # self.imageProcessQueue.put("D:\\Vision_Application\\OCR\\OCR 9\\Image004{}{}".format(77+i, ".BMP"))   # job 14
-            self.imageProcessQueue.put("D:\\Vision_Application\\ffc\\" + 'Image000{}{}'.format(i+12, ".BMP"))   # job 15
+            self.imageProcessQueue.put("./all_files/Image004{}{}".format(77+i, ".BMP"))   # job 14
+            # self.imageProcessQueue.put("D:\\Vision_Application\\ffc\\" + 'Image000{}{}'.format(i+12, ".BMP"))   # job 15
             # print('loading images... {}'.format(Constant.IMAGE_PATH+"\\"+'Image001{}{}'.format(i+14, ".BMP")))
             # time.sleep(.1)

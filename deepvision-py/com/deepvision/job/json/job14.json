@@ -6,15 +6,15 @@
   "modified_by": "",
   "modified_date_time": "",
   "img_source": "",
-  "display": "OFF",
+  "display": "ON",
   "tools": [
     {
       "type": "TEMPLATE_MATCHING",
       "main_img": "",
-      "temp_img": "..\\..\\..\\DATA\\template.jpg",
+      "temp_img": "D:\\github-repos\\dream-projects\\deep-vision-py\\DATA\\template.jpg",
       "method": "cv2.TM_CCOEFF_NORMED",
       "option": "SINGLE",
-      "display": "OFF",
+      "display": "ON",
       "output": [
         {
           "top_left_pnt": [],
@@ -26,7 +26,7 @@
           "type": "FIXTURE",
           "top_left_pnt": "outputList[0].top_left_pnt",
           "bottom_right_pnt": "outputList[0].bottom_right_pnt",
-          "display": "OFF",
+          "display": "ON",
           "top_left_pnt_gape": [
             241,
             0
@@ -46,12 +46,13 @@
               "main_img": "tool.main_img",
               "type": "CROP",
               "method": "CROP_BY_POINT",
-              "display": "OFF",
+              "display": "ON",
               "start_percentage": 0,
               "end_percentage": 0,
               "top_left": "outputList[1].next_top_left_pnt",
               "bottom_right": "outputList[1].next_bottom_right_pnt",
               "output": [
+
                 {
                   "crop_image": []
                 }
@@ -61,7 +62,7 @@
                   "main_img": "outputList[2].crop_image",
                   "type": "OCR",
                   "min_counter_area": 30,
-                  "display": "OFF",
+                  "display": "ON",
                   "text": "",
                   "output": [
                     {
