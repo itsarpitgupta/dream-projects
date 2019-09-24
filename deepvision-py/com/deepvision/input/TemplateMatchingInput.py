@@ -14,7 +14,14 @@ class TemplateMatchingInput(BaseInput):
         self.next_tool = next_tool
 
     type = ToolType.TEMPLATE_MATCHING
-    main_img = None;
-    temp_img = None;
+    main_img = None
+    temp_img = None
     method = Constant.TEMPLATE_MATCHING_METHOD_TM_CCOEFF
     option = Constant.TEMPLATE_MATCHING_ON_SINGLE_OBJECT
+    img_path = None
+
+    def setImagePath(self, img_path):
+        self.img_path = img_path
+
+    def getImagePath(self):
+        return self.img_path

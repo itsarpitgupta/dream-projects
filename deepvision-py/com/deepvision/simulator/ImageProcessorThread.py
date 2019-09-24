@@ -1,7 +1,9 @@
 import threading
 import time
 from concurrent.futures.thread import ThreadPoolExecutor
+
 import cv2 as cv2
+
 from com.deepvision.constants.ToolType import ToolType
 from com.deepvision.job.JobLoader import JobLoader
 from com.deepvision.models.ToolResult import ToolResult
@@ -23,6 +25,7 @@ from com.deepvision.tools.TextRecoginationTool import TextRecoginationTool
 
 class ImageProcessorThread(threading.Thread):
     main_img = []
+    img_path = ""
 
     def __init__(self, name, image_process_queue, image_result_queue, tools, result_dict, job_loader):
         threading.Thread.__init__(self)
@@ -39,9 +42,9 @@ class ImageProcessorThread(threading.Thread):
     def process_image(self):
         while True:
             # time.sleep(.5)
-            img_path = self.image_process_queue.get()
-            print(img_path)
-            main_img = cv2.imread(img_path)
+            self.img_path = self.image_process_queue.get()
+            print(self.img_path)
+            main_img = cv2.imread(self.img_path)
 
             # check if the load is high or not
             if self.image_process_queue.qsize() > 0:
@@ -50,6 +53,7 @@ class ImageProcessorThread(threading.Thread):
             # results = []
             for tool in self.tools:
                 tool.main_img = main_img
+                tool.setImagePath(self.img_path)
             #     result = process_tool(tool)
             #     results.append(result)
 
@@ -62,7 +66,6 @@ class ImageProcessorThread(threading.Thread):
 
             # put all the results from all the processor thread in result queue
             self.image_result_queue.put(list(results))
-
 
             print('__________________________________________________\n')
             print('Total time taken - {:.4f}\n'.format(end - start))
@@ -101,7 +104,8 @@ def process_tool(tool) -> ToolResult:
     output = toolEngine.applyTool(tool)
     outputList.append(output)
     main_tool_end = time.time()
-    tool_result = ToolResult(type=tool.type, result=output.status,
+
+    tool_result = ToolResult(img_path=tool.getImagePath(), type=tool.type, result=output.status,
                              time=(main_tool_end - main_tool_start), output=output, next_tool=[])
 
     # Next tool execution
@@ -178,7 +182,7 @@ def process_tool(tool) -> ToolResult:
         output = toolEngine.applyTool(next_tool_input)
         outputList.append(output)
         next_tool_end = time.time()
-        next_tool_result = ToolResult(type=next_tool[i]['type'], result=output.status,
+        next_tool_result = ToolResult(img_path=tool.getImagePath(), type=next_tool[i]['type'], result=output.status,
                                       time=(next_tool_end - next_tool_start), output=output, next_tool=[])
 
         tool_result.next_tool.append(next_tool_result)

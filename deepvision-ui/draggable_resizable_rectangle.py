@@ -1,8 +1,6 @@
-import sys
-
 from PySide2.QtCore import QRectF, QPointF
-from PySide2.QtGui import QBrush, QPainterPath, QPainter, QColor, QPen, QPixmap, Qt
-from PySide2.QtWidgets import QGraphicsRectItem, QApplication, QGraphicsView, QGraphicsScene, QGraphicsItem
+from PySide2.QtGui import QPainterPath, QPainter, QPen, Qt
+from PySide2.QtWidgets import QGraphicsRectItem, QGraphicsItem
 
 
 class GraphicsRectItem(QGraphicsRectItem):
@@ -29,7 +27,7 @@ class GraphicsRectItem(QGraphicsRectItem):
         handleBottomRight: Qt.SizeFDiagCursor,
     }
 
-    def __init__(self, *args, color, status_bar):
+    def __init__(self, *args, color, status_bar, showMarkers):
         """
         Initialize the shape.
         """
@@ -43,7 +41,9 @@ class GraphicsRectItem(QGraphicsRectItem):
         self.setFlag(QGraphicsItem.ItemIsSelectable, True)
         self.setFlag(QGraphicsItem.ItemSendsGeometryChanges, True)
         self.setFlag(QGraphicsItem.ItemIsFocusable, True)
-        self.updateHandlesPos()
+        self.showMarkers = showMarkers
+        if self.showMarkers == True:
+            self.updateHandlesPos()
         self.color = color
         self.status_bar = status_bar
 
@@ -229,8 +229,8 @@ class GraphicsRectItem(QGraphicsRectItem):
             self.setRect(rect)
 
         # self.status_bar.showMessage("X= " + str(rect.x()) + "Y= " + str(rect.y()))
-        self.updateHandlesPos()
-
+        if self.showMarkers == True:
+            self.updateHandlesPos()
 
     def shape(self):
         """
@@ -259,7 +259,7 @@ class GraphicsRectItem(QGraphicsRectItem):
         for handle, rect in self.handles.items():
             if self.handleSelected is None or handle == self.handleSelected:
                 painter.drawRect(rect)
-                self.status_bar.showMessage("X= "+str(rect.x()) + "Y= "+str(rect.y()))
+                self.status_bar.showMessage("X= " + str(rect.x()) + "Y= " + str(rect.y()))
 
 #
 # def main():
