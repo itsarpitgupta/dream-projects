@@ -1,13 +1,14 @@
 import os
 import pickle
-import socket
 import sys
+import threading
 
 import cv2
 import matplotlib.pyplot as plt
 from PySide2 import QtGui, QtCore
 from PySide2.QtGui import Qt, QPixmap, QPen, QColor, QBrush
-from PySide2.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsEllipseItem, QTableWidgetItem
+from PySide2.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsEllipseItem, QTableWidgetItem, \
+    QMessageBox
 
 from deepvision.job.Job import Job
 from deepvision.tools.CropTool import CropTool
@@ -16,10 +17,13 @@ from gui.ui_mainwindow import Ui_MainWindow
 from model import Tool
 from model.Output import Output
 from model.TemplateMatching import TemplateMatching
+from server_io import connect_to_camera
 from setup_image import SetupImageDialog
 
 
 class MainWindow(QMainWindow):
+    display_lock = threading.Lock()
+
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
@@ -31,10 +35,20 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_31.clicked.connect(lambda: self.add_tool_in_job())
         self.ui.pushButton_7.clicked.connect(lambda: self.edit_pattern_tool())
         self.ui.pushButton_8.clicked.connect(lambda: self.play())
-
+        self.ui.pushButton_24.clicked.connect(lambda: self.connect())
         self.ui.treeWidget_2.doubleClicked.connect(self.show_tool_on_canvas)
-        self.ui.stackedWidget.hide();
+        self.ui.stackedWidget.hide()
         self.add_tool_in_job()
+
+    def connect(self):
+        self.connection = connect_to_camera()
+        if self.connection is not None:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Connection is successful !")
+            msg.setWindowTitle("Connect to camera")
+            msg.exec_()
+            print("connection successful")
 
     def edit_pattern_tool(self):
         self.ui.pushButton_7.setText("Train")
@@ -55,18 +69,16 @@ class MainWindow(QMainWindow):
             h = self.ui.graphicsView.size().height()
             self.scene.setSceneRect(0, 0, w, h)
             self.ui.graphicsView.setScene(scene)
-            self.search_item = GraphicsRectItem(0, 0, 200, 200, color=Qt.green, status_bar=self.ui.statusbar,
-                                                showMarkers=True)
-            scene.addItem(self.search_item)
-            self.model_item = GraphicsRectItem(0, 0, 100, 100, color=Qt.red, status_bar=self.ui.statusbar,
-                                               showMarkers=True)
-            scene.addItem(self.model_item)
+            scene.addItem(
+                GraphicsRectItem(0, 0, 200, 200, color=Qt.green, status_bar=self.ui.statusbar, showMarkers=True))
+            scene.addItem(
+                GraphicsRectItem(0, 0, 100, 100, color=Qt.red, status_bar=self.ui.statusbar, showMarkers=True))
 
     def load_image(self):
         self.setupimage = SetupImageDialog()
         self.setupimage.setWindowModality(Qt.ApplicationModal)
         self.setupimage.dialog.buttonBox.accepted.connect(
-            lambda: self.load_image_on_canvas("D://Vision_Application//hul_bad_230219\Bad//Image00114.BMP"))
+            lambda: self.load_image_on_canvas("D://Vision_Application//hul_bad_230219\Bad//Image00115.BMP"))
         self.setupimage.exec_()
 
     def add_tool_in_job(self):
@@ -77,7 +89,7 @@ class MainWindow(QMainWindow):
             if (getChildNode == 'Patterns'):
                 self.ui.pushButton_7.setText("Model")
                 print("Patterns Tool added")
-                img = cv2.imread("D://Vision_Application//hul_bad_230219\Bad//Image00114.BMP", True)
+                img = cv2.imread("D://Vision_Application//hul_bad_230219\Bad//Image00115.BMP", True)
                 plt.imshow(img, cmap="hot")
                 x = self.model_item.x() * 2
                 y = self.model_item.y() * 2
@@ -86,7 +98,7 @@ class MainWindow(QMainWindow):
                 h = self.model_item.boundingRect().height() * 2 - 16
 
                 ct = CropTool()
-                image = "D://Vision_Application//hul_bad_230219\Bad//Image00114.BMP"
+                image = "D://Vision_Application//hul_bad_230219\Bad//Image00115.BMP"
                 top_left = [int(x), int(y)]
                 bottom_right = [int(w) + int(x), int(y) + int(h)]
                 plt.scatter(int(w) + int(x), int(y) + int(h), s=50)
@@ -138,7 +150,7 @@ class MainWindow(QMainWindow):
         self.scene.addPixmap(pic2)
         self.ui.graphicsView.setScene(self.scene)
         self.scene.update()
-        return self.scene;
+        return self.scene
 
     def add_tool_in_result_table(self, row_data, rowPosition=0):
         rowPosition = self.ui.tableWidget.rowCount()
@@ -159,16 +171,18 @@ class MainWindow(QMainWindow):
         color = QPen(QColor(255, 0, 0))
         brush = QBrush(QColor(0, 255, 0))
 
-        s = socket.socket()  # Create a socket object
-        host = socket.gethostname()  # Get local machine name
-        port = 60000  # Reserve a port for your service.
-
-        s.connect((host, port))
+        self.connection.send('PLAY'.encode('ascii'))
+        # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # host = socket.gethostname()  # Get local machine name
+        # port = 60000  # Reserve a port for your service.
+        #
+        # s.connect((host, port))
         while True:
             print('receiving data...')
-            data = s.recv(1024)
+            data = self.connection.recv(1024)
             data_variable = pickle.loads(data)
-            print(data_variable[0].img_path)
+            # print(data_variable[0].img_path)
             self.scene = self.load_image_on_canvas(data_variable[0].img_path)
             if data_variable[0].result != "FAIL":
                 x1 = int(data_variable[0].output.top_left_pnt[0] / 2)
@@ -187,7 +201,6 @@ class MainWindow(QMainWindow):
                 self.center_point.setBrush(brush)
                 self.scene.addItem(self.center_point)
                 self.scene.addItem(self.model_item)
-
             QApplication.processEvents()
 
 

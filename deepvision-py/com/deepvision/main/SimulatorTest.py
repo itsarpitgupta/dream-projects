@@ -4,12 +4,20 @@ from com.deepvision.job.JobLoader import JobLoader
 from com.deepvision.simulator.ImageLoaderThread import ImageLoaderThread
 from com.deepvision.simulator.ImageProcessorThread import ImageProcessorThread
 from com.deepvision.simulator.ImageResultThread import ImageResultThread
-from concurrent.futures import ThreadPoolExecutor
-
-from deepvision.simulator import ImageServer
+from deepvision.io import client_io
 
 
 def main():
+    connection = client_io.connect_to_ui()
+    while True:
+        command = connection.recv(1024)
+        if command.decode('ascii') == 'PLAY':
+            start(connection)
+        elif command.decode('ascii') == 'STOP':
+            print('stop simulator')
+
+
+def start(connection):
     job_loader = JobLoader()
     job_loader.loadJob()
 
@@ -17,7 +25,7 @@ def main():
 
     result_queue = queue.Queue(maxsize=10)
 
-    connection = ImageServer.connect()
+    # connection = client_io.connect_to_ui()
 
     image_loader_thread = ImageLoaderThread("ILT", processing_queue)
     # image_loader_thread.setDaemon(True)

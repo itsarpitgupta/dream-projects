@@ -1,9 +1,6 @@
-import threading
-import time
-from com.deepvision.constants import Constant
-from com.deepvision.models.ImageData import ImageData
-import cv2 as cv2
 import pickle
+import threading
+
 
 class ImageResultThread(threading.Thread):
 
@@ -19,10 +16,6 @@ class ImageResultThread(threading.Thread):
     def display_result(self):
         while True:
             results = self.result_queue.get()
-
-            # # while True:
-            # data = self.conn.recv(1024)
-            # print('Server received', repr(data))
             results_string = pickle.dumps(results)
             self.conn.send(results_string)
             print('Done send')
